@@ -1,0 +1,9 @@
+logs
+target
+/.idea
+abics_log_play.iml
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID

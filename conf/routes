@@ -1,0 +1,173 @@
+# Routes	
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Map static resources from the /public folder to the /assets URL path
+#GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+#ABICS DATA
+
+# Home page
+GET     /		                             controllers.IndexController.index()
+GET     /abics_log                           controllers.IndexController.index()
+GET     /abics_log/                          controllers.IndexController.index()
+
+POST	/indexController/logarSistema		 controllers.IndexController.logarSistema()
+POST	/indexController/recuperarSenha		 controllers.IndexController.recuperarSenha()
+
+# TEMPLATE
+GET  /redirectTemplate							controllers.TemplateController.redirectLogin()
+GET	 /templateController/logoutSistema					controllers.TemplateController.logoutSistema()
+GET	 /templateController/usuarioLogado					controllers.TemplateController.usuarioLogado()
+
+#Items 
+GET	 	/itemController/findAll						controllers.ItemController.findAll()
+POST	/itemController/cadastrarItem				controllers.ItemController.cadastrarItem()
+POST 	/itemController/alterarItem					controllers.ItemController.alterarItem()
+GET		/itemController/removerItem/:idItem			controllers.ItemController.removerItem(idItem:Long)
+GET		/itemController/findAllItemValorByItem/:idItem			controllers.ItemController.findAllItemValorByItem(idItem:Long)
+GET		/itemController/getEnumUnidade			controllers.ItemController.getEnumUnidade()
+
+#Categorias
+POST  /categoriaController/cadastrarCategoria			controllers.CategoriaController.cadastrarCategoria()
+POST  /categoriaController/vincularItemCategoria			controllers.CategoriaController.vincularItemCategoria()
+POST  /categoriaController/alterarCategoria			controllers.CategoriaController.alterarCategoria()
+GET	  /categoriaController/removerCategoria/:idCategoria				controllers.CategoriaController.removerCategoria(idCategoria:Long)
+GET	 /categoriaController/findAll			controllers.CategoriaController.findAll()
+GET	 /categoriaController/findItemCategoria/:idCategoria			controllers.CategoriaController.findItemCategoria(idCategoria:Long)
+GET	 /categoriaController/findAllItem			controllers.CategoriaController.findAllItem()
+
+#Cotacao
+GET	  /cotacaoController/findAll			controllers.CotacaoController.findAll()
+GET	  /cotacaoController/findCategoriasCotacao/:idCotacao			controllers.CotacaoController.findCategoriasCotacao(idCotacao:Long)
+GET	  /cotacaoController/findAllCategoria			controllers.CotacaoController.findAllCategoria()
+POST   /cotacaoController/vincularCategoriaCotacao			controllers.CotacaoController.vincularCategoriaCotacao()
+POST  /cotacaoController/cadastrarCotacao			controllers.CotacaoController.cadastrarCotacao()
+POST  /cotacaoController/alterarCotacao			controllers.CotacaoController.alterarCotacao()
+GET	  /cotacaoController/removerCotacao/:idCotacao				controllers.CotacaoController.removerCotacao(idCotacao:Long)
+
+#Usuario
+GET	  /usuarioController/findAll					controllers.UsuarioController.findAll()
+POST  /usuarioController/cadastrarUsuario			controllers.UsuarioController.cadastrarUsuario()
+GET	  /usuarioController/removerUsuario/:idUsuario				controllers.UsuarioController.removerUsuario(idUsuario:Long)
+GET	  /usuarioController/ativarUsuario/:idUsuario				controllers.UsuarioController.ativarUsuario(idUsuario:Long)
+POST  /usuarioController/atualizar			controllers.UsuarioController.atualizar()
+
+#Grafico
+POST	 /historicoController/relatorioCompleto		controllers.HistoricoController.relatorioCompleto()
+POST	 /historicoController/imprimirRelatorio		controllers.HistoricoController.imprimirRelatorio()
+POST	 /historicoController/imprimirGrafico		controllers.HistoricoController.imprimirGrafico()
+
+#Cambio
+GET	  /cambioController/findByPeriodo/:dataInicialUnix							controllers.CambioController.findByPeriodo(dataInicialUnix:Long)
+GET	  /cambioController/findValorMercadoriaByPeriodo/:dataInicialUnix			controllers.CambioController.findValorMercadoriaByPeriodo(dataInicialUnix:Long)	
+POST  /cambioController/cadastrarCambio					controllers.CambioController.cadastrarCambio()
+POST  /cambioController/atualizarCambio					controllers.CambioController.atualizarCambio()
+GET	  /cambioController/findAll							controllers.CambioController.findAll()
+GET	  /cambioController/findGraficoVariacaoCambio/:dataInicialUnix		controllers.CambioController.findGraficoVariacaoCambio(dataInicialUnix:Long)
+GET	  /cambioController/findGraficoVariacaoValoresMercadoria/:dataInicialUnix		controllers.CambioController.findGraficoVariacaoValoresMercadoria(dataInicialUnix:Long)
+GET	  /cambioController/findAllValorMercadoria						controllers.CambioController.findAllValorMercadoria()
+GET	  /cambioController/findAllCotacao				controllers.CambioController.findAllCotacao()
+#POST  /cambioController/cadastrarValorMercadoria					controllers.CambioController.cadastrarValorMercadoria()
+POST  /cambioController/cadastrarValorMercadoriaCotacao					controllers.CambioController.cadastrarValorMercadoriaCotacao()
+POST  /cambioController/atualizarValorMercadoria					controllers.CambioController.atualizarValorMercadoria()
+
+#Contato
+POST	/contatoController/enviarEmailContato		controllers.ContatoController.enviarEmailContato()
+
+#####SUMARIZACAO SINCRONIZACAO#####
+GET		/sumarizacaoSincronizacaoController/findAll					controllers.SumarizacaoSincronizacaoController.findAll()
+GET		/sumarizacaoSincronizacaoController/rodarCrawlerCambio					controllers.SumarizacaoSincronizacaoController.rodarCrawlerCambio()
+GET		/sumarizacaoSincronizacaoController/rodarCrawlerCotacao					controllers.SumarizacaoSincronizacaoController.rodarCrawlerCotacao()
+#GET		/sumarizacaoSincronizacaoController/rodarCrawlerAntigo					controllers.SumarizacaoSincronizacaoController.rodarCrawlerAntigo()
+
+#####LOGISTICA#####
+GET			/logisticaController/findCambioByData/:dataUnixtime					controllers.LogisticaController.findCambioByData(dataUnixtime:Long)
+GET			/logisticaController/findValorMercadoria/:dataUnixtime					controllers.LogisticaController.findValorMercadoria(dataUnixtime:Long)
+POST		/logisticaController/simularLogistica/:dataUnixtime					controllers.LogisticaController.simularLogistica(dataUnixtime:Long)
+
+
+#####DASHBOARD#####
+GET	 	/dashboardController/findAllCotacao       controllers.DashboardController.findAllCotacao()
+GET	 	/dashboardController/montarGraficoDiferencialCotacao/:idCotacao/:dataInicialUnix/:tipoMoeda/:aplicarLogistica       controllers.DashboardController.montarGraficoDiferencialCotacao(idCotacao:Long, dataInicialUnix:Long, tipoMoeda:String, aplicarLogistica:Boolean)
+GET	 	/dashboardController/montarGraficoCotacao/:idCotacao/:dataInicialUnix/:tipoMoeda/:aplicarLogistica       controllers.DashboardController.montarGraficoCotacao(idCotacao:Long, dataInicialUnix:Long, tipoMoeda:String, aplicarLogistica:Boolean)
+GET 	/dashboardController/simularRelatorio/:dataInicialUnix/:aplicarLogistica					controllers.DashboardController.simularRelatorio(dataInicialUnix:Long, aplicarLogistica:Boolean)
+GET 	/dashboardController/findCambioByData/:dataUnixtime						controllers.DashboardController.findCambioByData(dataUnixtime:Long)
+GET 	/dashboardController/graficoEvolucaoPreco/:dataFinalunix/:tipoMoeda/:aplicarLogistica								controllers.DashboardController.graficoEvolucaoPreco(dataFinalunix:Long, tipoMoeda:String, aplicarLogistica:Boolean)
+GET 	/dashboardController/graficoDiferencaPreco/:flagES/:dataFinalunix/:tipoMoeda/:aplicarLogistica								controllers.DashboardController.graficoDiferencaPreco(flagES:Integer, dataFinalunix:Long, tipoMoeda:String, aplicarLogistica:Boolean)
+GET 	/dashboardController/graficoEvolucaoPrecoNacional/:dataFinalunix/:idCotacaoInternacional/:tipoMoeda/:aplicarLogistica							controllers.DashboardController.graficoEvolucaoPrecoNacional(dataFinalunix:Long, idCotacaoInternacional:Long, tipoMoeda:String, aplicarLogistica:Boolean)
+GET 	/dashboardController/graficoDiferencaPrecoNacional/:flagES/:dataFinalunix/:idCotacaoInternacional/:tipoMoeda/:aplicarLogistica								controllers.DashboardController.graficoDiferencaPrecoNacional(flagES:Integer, dataFinalunix:Long, idCotacaoInternacional:Long, tipoMoeda:String, aplicarLogistica:Boolean)
+
+####ABICS DATA: Acordos Comerciais####
+GET		/abicsDataController/findAcordoComercial/:data/:paisId				controllers.AbicsDataController.findAcordoComercial(data:String, paisId:Long)
+GET		/abicsDataController/findPaisAcordoComercial/:data				controllers.AbicsDataController.findPaisAcordoComercial(data:String)
+GET		/abicsDataController/downloadPlanilhaAcordoComercial/:ano 		controllers.AbicsDataController.downloadPlanilhaAcordoComercial(ano:String)
+
+####SUMARIZACAO RELATORIO ABICS DATA####
+GET 	/abicsDataRelatorioBrasilController/findAllPais						controllers.AbicsDataRelatorioBrasilController.findAllPais()
+GET 	/abicsDataRelatorioBrasilController/findAllContinente					controllers.AbicsDataRelatorioBrasilController.findAllContinente()
+GET 	/abicsDataRelatorioBrasilController/findAllBlocoEconomico				controllers.AbicsDataRelatorioBrasilController.findAllBlocoEconomico()
+
+POST 	/abicsDataRelatorioBrasilController/consultarGraficoAbics/:tipoDadoAbics						controllers.AbicsDataRelatorioBrasilController.consultarGraficoAbics(tipoDadoAbics:String)
+POST 	/abicsDataRelatorioBrasilController/consultarGraficoAbicsAgregado/:tipoDadoAbics						controllers.AbicsDataRelatorioBrasilController.consultarGraficoAbicsAgregado(tipoDadoAbics:String)
+POST 	/abicsDataRelatorioBrasilController/consultarGraficoComtrade/:tipoDadoComtrade						controllers.AbicsDataRelatorioBrasilController.consultarGraficoComtrade(tipoDadoComtrade:String)
+POST 	/abicsDataRelatorioBrasilController/consultarGraficoComtradeAgregado/:tipoDadoComtrade						controllers.AbicsDataRelatorioBrasilController.consultarGraficoComtradeAgregado(tipoDadoComtrade:String)
+POST 	/abicsDataRelatorioBrasilController/consultarTabela						controllers.AbicsDataRelatorioBrasilController.consultarTabela()
+POST 	/abicsDataRelatorioBrasilController/consultarTabelaAgregada						controllers.AbicsDataRelatorioBrasilController.consultarTabelaAgregada()
+POST 	/abicsDataRelatorioBrasilController/imprimirRelatorio						controllers.AbicsDataRelatorioBrasilController.imprimirRelatorio()
+POST 	/abicsDataRelatorioBrasilController/imprimirRelatorioAgregado						controllers.AbicsDataRelatorioBrasilController.imprimirRelatorioAgregado()
+POST 	/abicsDataRelatorioBrasilController/variacaoAbics/:tipo						controllers.AbicsDataRelatorioBrasilController.variacaoAbics(tipo: String)
+POST 	/abicsDataRelatorioBrasilController/variacaoComtrade/:tipo						controllers.AbicsDataRelatorioBrasilController.variacaoComtrade(tipo: String)
+
+####SUMARIZACAO RELATORIO ABICS DATA####
+#GET		/abicsDataRelatorioController/findPaisBrasil					controllers.AbicsDataRelatorioController.findPaisBrasil()
+GET 	/abicsDataRelatorioController/findAllPais						controllers.AbicsDataRelatorioController.findAllPais()
+GET 	/abicsDataRelatorioController/findAllContinente					controllers.AbicsDataRelatorioController.findAllContinente()
+GET 	/abicsDataRelatorioController/findAllBlocoEconomico				controllers.AbicsDataRelatorioController.findAllBlocoEconomico()
+POST	 /abicsDataRelatorioController/imprimirRelatorio				controllers.AbicsDataRelatorioController.imprimirRelatorio()
+POST	 /abicsDataRelatorioController/imprimirRelatorioAgregado		controllers.AbicsDataRelatorioController.imprimirRelatorioAgregado()
+#GET 	/abicsDataRelatorioController/findAllPaisByContinente/:idContinente						controllers.AbicsDataRelatorioController.findAllPaisByContinente(idContinente:Long)
+#GET 	/abicsDataRelatorioController/findAllPaisByBlocoEconomico/:idBlocoEconomico				controllers.AbicsDataRelatorioController.findAllPaisByBlocoEconomico(idBlocoEconomico:Long)
+
+POST 	/abicsDataRelatorioController/consultarGraficoUSDAAgregado/:tipoConsulta						controllers.AbicsDataRelatorioController.consultarGraficoUSDAAgregado(tipoConsulta: String)
+POST 	/abicsDataRelatorioController/consultarGraficoUSDA						controllers.AbicsDataRelatorioController.consultarGraficoUSDA()
+POST 	/abicsDataRelatorioController/consultarGraficoComtrade/:tipoDadoComtrade						controllers.AbicsDataRelatorioController.consultarGraficoComtrade(tipoDadoComtrade:String)
+POST 	/abicsDataRelatorioController/consultarGraficoComtradeAgregado/:tipoDadoComtrade						controllers.AbicsDataRelatorioController.consultarGraficoComtradeAgregado(tipoDadoComtrade:String)
+
+POST 	/abicsDataRelatorioController/consultarTabela						controllers.AbicsDataRelatorioController.consultarTabela()
+POST 	/abicsDataRelatorioController/consultarTabelaAgregada						controllers.AbicsDataRelatorioController.consultarTabelaAgregada()
+
+#####COMTRADE#####
+GET 	/abicsDataComtradeController/findAllPartner						controllers.AbicsDataComtradeController.findAllPartner()
+GET 	/abicsDataComtradeController/findAllReporter					controllers.AbicsDataComtradeController.findAllReporter()
+POST 	/abicsDataComtradeController/consultarComparativo/:tipoValorComtrade/:pfCode				controllers.AbicsDataComtradeController.consultarComparativo(tipoValorComtrade:String, pfCode:String)
+
+#####USDA#####
+GET 	/abicsDataUSDAController/findDistinctAno						controllers.AbicsDataUSDAController.findDistinctAno()
+GET 	/abicsDataUSDAController/findDistinctPais						controllers.AbicsDataUSDAController.findDistinctPais()
+POST	/abicsDataUSDAController/graficoUSDA/:tipo						controllers.AbicsDataUSDAController.graficoUSDA(tipo:String)
+
+
+####ABICS> EMPRESA PRODUTO#####
+
+GET		/abicsDataEmpresaProdutoController/findAllAbicsEmpresa						controllers.AbicsDataEmpresaProdutoController.findAllAbicsEmpresa()
+GET		/abicsDataEmpresaProdutoController/findAllAbicsProduto						controllers.AbicsDataEmpresaProdutoController.findAllAbicsProduto()
+POST	/abicsDataEmpresaProdutoController/graficoAbicsEmpresa/:tipo						controllers.AbicsDataEmpresaProdutoController.graficoAbicsEmpresa(tipo:String)
+POST	/abicsDataEmpresaProdutoController/graficoAbicsProduto/:tipo						controllers.AbicsDataEmpresaProdutoController.graficoAbicsProduto(tipo:String)
+POST	/abicsDataEmpresaProdutoController/variacaoAbicsEmpresa/:tipo						controllers.AbicsDataEmpresaProdutoController.variacaoAbicsEmpresa(tipo:String)
+POST	/abicsDataEmpresaProdutoController/variacaoAbicsProduto/:tipo						controllers.AbicsDataEmpresaProdutoController.variacaoAbicsProduto(tipo:String)
+
+####ABICS> PAIS#####
+GET		/abicsDataPaisController/findAllPais					controllers.AbicsDataPaisController.findAllPais()
+POST	/abicsDataPaisController/grafico/:tipo					controllers.AbicsDataPaisController.grafico(tipo:String)
+POST	/abicsDataPaisController/variacao/:tipo					controllers.AbicsDataPaisController.variacao(tipo:String)
+
+####ABICS DATA TEMPLATE####
+POST		/templateAbicsDataController/gerarExcel						controllers.TemplateAbicsDataController.gerarExcel()
+
+
+####RELATORIO ABICS DATA TEMPLATE####
+GET		/templateRelatorioAbicsDataController/download						controllers.TemplateRelatorioAbicsDataController.download()
+GET		/templateRelatorioAbicsDataController/findData/:tipoRelatorio/:anoParametro/:mesParametro						controllers.TemplateRelatorioAbicsDataController.findData(tipoRelatorio:Integer, anoParametro:Integer, mesParametro:Integer)
+GET		/templateRelatorioAbicsDataController/findDataAnual/:tipoRelatorio/:anoInicialParametro/:anoFinalParametro/:mesParametro						controllers.TemplateRelatorioAbicsDataController.findDataAnual(tipoRelatorio:Integer, anoInicialParametro:Integer, anoFinalParametro:Integer, mesParametro:Integer)
