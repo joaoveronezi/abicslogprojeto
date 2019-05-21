@@ -1,0 +1,295 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-container">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-truck"></i> Logística Atual</h3>
+		            <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Informações" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+                </div>
+            	<div class="panel-body">
+            	     <div class="row">
+                		<div class="col-md-5">
+                			<div class="panel panel-default">
+                				<div class="panel-body">
+                					<div class="row">
+		                				<div class="col-md-1">
+											<span style="vertical-align: middle;"><b>Data: </b></span>
+		                				</div>
+		                				<div class="col-md-11">
+											<div class="input-group input-group-sm datapicker">
+								                <input name="campoDataCambio" class="form-control" type="text" show-button-bar="false"
+								                   datepicker-popup="dd/MM/yyyy" ng-change="changeDataCambio()" ng-model="objetoDataCambioSelecionada"
+								                   is-open="dataCambioIsOpen" onkeydown="return forceDate(event);"
+								                   title="Data"/>
+								                <div class="input-group-btn">
+								                    <button type="button" class="btn btn-success" ng-click="openDataCambio()">
+								                    	<span class="fa fa-calendar"></span>
+								                    </button>
+								                </div>
+											</div>
+		                				</div>
+                					</div>
+                				</div>
+                			</div>
+                		</div>
+                		<div class="col-md-3">
+	                		<div class="panel panel-default">
+	                			<div class="panel-body" style="margin-bottom: 9px;">
+									<span><b>Dólar: </b>{{cambio.valorDolar | filterMonetary}}</span>
+									<span style="font-size: 12px !important">   ({{cambio.valorDolar}})</span>
+	                			</div>
+	                		</div>
+	                	</div>
+	                	<div class="col-md-4">
+	                		<div class="panel panel-default">
+	                			<div class="panel-body" >
+									<button type="button" class="btn btn-primary btn-sm pull-left" 
+										title="Simular Logística" ng-click="simularLogistica()">
+										<span>Simular Logística</span>
+									</button>
+									
+									<button type="button" class="btn btn-warning btn-sm pull-right" 
+										title="Valores CECAFE" ng-click="valoresDefault()">
+										<span>Valores CECAFE</span>
+									</button>
+	                			</div>
+	                		</div>
+	                	</div>
+					</div>
+            	
+	            	<div class="row">
+            			<div class="col-md-12">
+            				<div class="panel panel-default">
+            					<div class="panel-heading">
+            						<h3 class="panel-title">Custo Mercadoria X Custo Mercadoria com Logística CECAFE</h3>
+            					</div>
+            					<div class="panel-body">
+		            				<div class="table-responsive">
+		            					<div>
+											<table class="table table-bordered table-striped table-hover">
+												<thead>
+													<tr>
+														<td>Saca/60kg sem Logística</td>
+														<td ng-repeat="cotacao in cotacaoInternacionalList">{{cotacao.nome}}</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Real <span style="color: green;">(R$)</span></td>
+														<td ng-repeat="obj in valorMercadoriaCotacaoList">
+															{{obj.valorMercadoriaReal | filterMonetary}}
+															<span style="font-size: 10px"> ({{obj.valorMercadoriaReal}})</span>
+														</td>
+													</tr>
+													<tr>
+														<td>Dólar <span style="color: blue;">(US$)</span></td>
+														<td ng-repeat="obj in valorMercadoriaCotacaoList">
+															{{obj.valorMercadoriaDolar | filterMonetary}}
+															<span style="font-size: 10px"> ({{obj.valorMercadoriaDolar}})</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+		            				</div>
+		            				
+		            				<div class="table-responsive">
+		            					<div>
+											<table class="table table-bordered table-striped table-hover">
+												<thead>
+													<tr>
+														<td>Saca/60kg com Logística CECAFE</td>
+														<td ng-repeat="cotacao in cotacaoInternacionalList">{{cotacao.nome}}</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Real <span style="color: green;">(R$)</span></td>
+														<td ng-repeat="obj in valorCustoImportacaoCotacaoList">
+															{{obj.valorCustoImportacaoReal | filterMonetary}}
+															<span style="font-size: 10px"> ({{obj.valorCustoLogisticaReal | filterMonetary}})</span>
+														</td>
+													</tr>
+													<tr>
+														<td>Dólar <span style="color: blue;">(US$)</span></td>
+														<td ng-repeat="obj in valorCustoImportacaoCotacaoList">
+															{{obj.valorCustoImportacaoDolar | filterMonetary}}
+															<span style="font-size: 10px"> ({{obj.valorCustoLogisticaDolar | filterMonetary}})</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+		            				</div>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
+            	
+            		<div class="row">
+            			<div class="col-md-12">
+            				<div class="panel panel-default">
+            					<div class="panel-heading">
+            						<h3 class="panel-title">
+            							FOB Porto de Santos - 1 CONTAINER DE 20' FCL (320 sacas)
+           							</h3>
+            						
+            					</div>
+            					<div class="panel-body">
+		            				<div class="table-responsive">
+		            					<div>
+											<table class="table table-bordered table-striped table-hover">
+												<thead>
+													<tr>
+														<td></td>
+														<td ng-repeat="cotacao in cotacaoInternacionalList" colspan="1">
+															{{cotacao.nome}}
+														</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Valor do Frete <span style="color: blue;">(US$)</span></td>
+														<td ng-repeat="obj in valorFreteList" colspan="1">
+															<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+<!-- 															<div class="row"> -->
+<!-- 																<div class="col-md-6"> -->
+<!-- 																	<span>{{obj.valor}}</span> -->
+<!-- 																</div> -->
+<!-- 																<div class="col-md-6"> -->
+<!-- 																	<input ng-model="obj.valor" style="width: 70px !important"  -->
+<!-- 																		onkeydown="return forceNumber(event);" /> -->
+<!-- 																</div> -->
+<!-- 															</div> -->
+														</td>
+<!-- 														<td ng-repeat="obj in valorFreteList"> -->
+<!-- 															{{obj.valor}} -->
+<!-- 														</td> -->
+													</tr>
+													<tr>
+														<td>Taxa do Seguro <span style="color: red;">(%)</span></td>
+														<td ng-repeat="obj in taxaSeguroList">
+															{{obj.valor}}
+														<!-- <input ng-model="obj.valor" onkeydown="return forceNumber(event);" /> -->
+														</td>
+													</tr>
+													<tr>
+														<td>Importação <span style="color: green;">(R$)</span></td>
+														<td ng-repeat="obj in importacaoList">
+															<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+														</td>
+													</tr>
+													<tr>
+														<td>Demurrage do conteiner <span style="color: blue;">(US$)</span></td>
+														<td ng-repeat="obj in demurrageContainerList">
+															<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+														</td>
+													</tr>
+													<tr>
+														<td>THC <span style="color: green;">(R$)</span></td>
+														<td ng-repeat="obj in thcList">
+															<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+		            				</div>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
+            		
+            		<div class="row">
+            			<div class="col-md-12">
+            				<div class="panel panel-default">
+            					<div class="panel-heading">
+            						<h3 class="panel-title">
+            							Despesas Portuárias - 1 CONTAINER DE 20' FCL (320 sacas)
+           							</h3>
+            					</div>
+            					<div class="panel-body">
+            						<div class="table-responsive">
+            							<table class="table table-bordered table-striped table-hover">
+            								<thead>
+												<tr>
+													<td></td>
+													<td ng-repeat="cotacao in cotacaoInternacionalList">{{cotacao.nome}}</td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Liberação BL <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in liberacaoList">
+														<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+													</td>
+												</tr>
+												<tr>
+													<td>Desconsolidação <span style="color: blue;">(US$)</span></td>
+													<td ng-repeat="obj in desconsolidacaoList">
+														<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+													</td>
+												</tr>
+												<tr>
+													<td>Taxa Registro Siscarga <span style="color: blue;">(US$)</span></td>
+													<td ng-repeat="obj in siscargaList">
+														<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />	
+													</td>
+												</tr>
+												<tr>
+													<td>ISPS <span style="color: blue;">(US$)</span></td>
+													<td ng-repeat="obj in ispsList">
+														<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+													</td>
+												</tr>
+												<tr>
+													<td>Taxa Util. SISCOMEX <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in siscomexList">
+														<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+													</td>
+												</tr>
+												<tr>
+													<td>Armazenagem <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in armazenagemList">
+														<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+													</td>
+												</tr>
+												<tr>
+													<td>Horário Despachante <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in despachanteList">
+														<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+													</td>
+												</tr>
+												<tr>
+													<td>Sindicato Desp. Aduaneiros <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in sindicatoAduaneirosList">
+														<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+													</td>
+												</tr>
+												<tr>
+													<td>Transporte Porto - Fábrica <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in transportePortoFabricaList">
+														<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+													</td>
+												</tr>
+												<tr>
+													<td>Marinha Mercante <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in marinhaMercanteList">
+														<input ng-model="obj.valor" onkeydown="return forceNumber(event);" />
+													</td>
+												</tr>
+											</tbody>
+            							</table>
+            						</div>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>

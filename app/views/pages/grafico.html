@@ -1,0 +1,414 @@
+<style>
+/* .c3-ygrid-line line { */
+/*     stroke: red; */
+/* } */
+/* .c3-ygrid-line.grid800 line { */
+/*     stroke: green; */
+/* } */
+
+.c3-region.regionY {
+  fill: red;
+}
+ .c3-region.regionGreen {
+   fill: green;
+ }
+.c3-region.regionWhite {
+  fill: white;
+}
+</style>
+
+<div class="message-alerta">
+  	<div directive-alerta-sistema-template></div>
+</div>
+
+<div id="divPaginaGrafico" class="container-fluid">
+	<div class="panel panel-default" style="margin-top: 5%;">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-line-chart"></i> Relatório</h3>
+	        <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+				title="Informações" ng-click="$parent.abrirModalInformacoes()">
+				<span class="fa fa-info-circle" aria-hidden="true"></span>
+			</button>
+         </div>
+         <div class="panel-body">
+         	<div class="row">
+				<div class="col-md-6">
+					<div class="panel panel-default">
+		                <div class="panel-heading">
+		                    <h3 class="panel-title"><i class="fa fa-calendar"></i> Data</h3>
+		                </div>
+		                <div class="panel-body">
+				    		<div class="input-group datapicker">
+				                <input name="campoDataCambio" class="form-control" type="text"
+				                   datepicker-popup="dd/MM/yyyy" ng-change="changeDataCambio()" ng-model="objetoDataCambioSelecionada"
+				                   is-open="dataCambioIsOpen" onkeydown="return forceDate(event);"
+				                   title="Data"/>
+				                <div class="input-group-btn">
+				                    <button type="button" class="btn btn-success" ng-click="openDataCambio()">
+				                    	<span class="fa fa-calendar"></span>
+				                    </button>
+				                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="panel panel-default">
+		                <div class="panel-heading">
+		                    <h3 class="panel-title"><i class="fa fa-eur"></i> Dados do Câmbio <i class="fa fa-usd"></i></h3>
+		                </div>
+		                <div class="panel-body">
+							<div class="row">
+								<div class="col-md-4">
+									<span><b>Dolar: </b>{{cambio.valorDolar}}</span>
+								</div>
+								<div class="col-md-4">
+									<span><b>Euro: </b>{{cambio.valorEuro}}</span>
+								</div>
+								<div class="col-md-4">
+									<span><b>Euro/Dolar: </b>{{cambio.valorEuroDolar}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Cotações Internacionais -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-md-11">
+									<h5>Cotações Internacionais</h5>
+								</div>
+								<div class="col-md-1">
+									<label class="btn btn-danger">
+				              			<i class="fa fa-line-chart"></i>
+				              			<input type="checkbox"	ng-model="selectedGraficoInternacional" ng-click="selectAllCheckBoxGrafico(0)" tooltip-placement="top" tooltip="Gráficos">
+				              		</label>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<div ng-repeat="cotacao in cotacaoInternacionalList">
+								<div class="col-md-3">
+									<div class="panel panel-default">
+										<div class="panel-body">
+						                    <div class="row">
+				    							<div class="col-md-4">
+				    								<img class="flags" src="assets/images/flags/{{cotacao.flag}}">
+				    							</div>
+				    							<div class="col-md-8">
+				    								<h5 class="nome-cotacao">{{cotacao.nome}}</h5>
+				    							</div>
+				    						</div>
+				    						<hr>
+				    						<div class="row">
+				    							<div class="col-md-12">
+													<label title="Relatório Gráficos" class="btn btn-danger pull-right">
+														<i class="fa fa-line-chart"></i>
+														<input type="checkbox" ng-click="selectCheckBoxGrafico(0, cotacao.id)"
+														ng-model="cotacao.selectedGrafico">
+													</label>
+				    							</div>
+				    						</div>
+				    					</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Cotações Nacionais -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-md-11">
+									<h5>Cotações Nacionais</h5>
+								</div>
+								<div class="col-md-1">
+									<label title="Relatório Gráficos" class="btn btn-danger">
+										<i class="fa fa-line-chart"></i>
+				              			<input type="checkbox" ng-model="selectedGraficoNacional"
+			              			ng-click="selectAllCheckBoxGrafico(1)" >
+			              			</label>
+								</div>
+							</div>
+						</div>
+						<div class="panel-body">
+							<div ng-repeat="cotacao in cotacaoNacionalList">
+								<div class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-body">
+						                    <div class="row">
+				    							<div class="col-md-4">
+				    								<img class="flags" src="assets/images/flags/{{cotacao.flag}}">
+				    							</div>
+				    							<div class="col-md-8">
+				    								<h5 class="nome-cotacao">{{cotacao.nome}}</h5>
+				    							</div>
+				    						</div>
+				    						<hr>
+				    						<div class="row">
+				    							<div class="col-md-12">
+													<label title="Relatório Gráficos" class="btn btn-danger pull-right">
+														<i class="fa fa-line-chart"></i>
+														<input type="checkbox" ng-click="selectCheckBoxGrafico(0, cotacao.id)"
+														ng-model="cotacao.selectedGrafico">
+													</label>
+				    							</div>
+				    						</div>
+				    					</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- <div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3>Cotações Internacionais</h3>
+							<label class="btn btn-danger">
+		              			<i class="fa fa-line-chart"></i>
+		              			<input type="checkbox"	ng-model="selectedGraficoInternacional" ng-click="selectAllCheckBoxGrafico(0)" tooltip-placement="top" tooltip="Gráficos">
+		              		</label>
+						</div>
+						<div class="row" ng-repeat="cotacao in cotacaoInternacionalList">
+							<div class="col-md-3">
+								<div class="panel panel-default">
+									<div class="panel-body">
+					                    <div class="row">
+			    							<div class="col-md-4">
+			    								<img class="flags" src="assets/images/flags/{{cotacao.flag}}">
+			    							</div>
+			    							<div class="col-md-8">
+			    								<h5 class="nome-cotacao">{{cotacao.nome}}</h5>
+			    							</div>
+			    						</div>
+			    					</div>
+			    					<hr>
+			    					<div class="panel-footer">
+			    						<label title="Relatório Gráficos" class="btn btn-danger pull-right">
+											<i class="fa fa-line-chart"></i>
+											<input type="checkbox" ng-click="selectCheckBoxGrafico(0, cotacao.id)"
+											ng-model="cotacao.selectedGrafico">
+										</label>
+			    					</div>
+			    				</div>
+			    			</div>
+			    		</div>
+			    	</div>
+		    	</div>
+	    	</div>
+
+
+
+
+
+    						<div class="row">
+		                <div class="panel-heading">
+		                	<div class="row">
+								<div class="col-md-3 col-md-offset-9 text-center">
+									<div class="flags-group" ng-repeat="cotacao in cotacaoInternacionalList">
+										<a><img class="flag-button" src="assets/images/flags/{{cotacao.flag}}"></a>
+									</div>
+								</div>
+							</div>
+		                    <div class="pull-right" style="margin-top: -3.9%">
+			              		<label class="btn btn-danger">
+			              			<i class="fa fa-line-chart"></i>
+			              			<input type="checkbox"	ng-model="selectedGraficoInternacional" ng-click="selectAllCheckBoxGrafico(0)" tooltip-placement="top" tooltip="Gráficos">
+			              		</label>
+			              	</div>
+		                </div>
+		                <div class="panel-body">
+			    			<div ng-repeat="cotacao in cotacaoInternacionalList">
+			    				<div class="panel panel-default">
+			    					<div class="panel-body">
+			    						<div class="row">
+			    							<div class="col-md-6">
+			    								<img src="assets/images/flags/{{cotacao.flag}}">
+			    							</div>
+			    							<div class="col-md-6">
+			    								<span>{{cotacao.nome}}</span>
+			    							</div>
+			    						</div>
+			    						<div class="row">
+			    							<div class="col-md-3 col-md-offset-6">
+												<label title="Relatório Gráficos" class="btn btn-danger pull-right">
+													<i class="fa fa-line-chart"></i>
+													<input type="checkbox" ng-click="selectCheckBoxGrafico(0, cotacao.id)"
+													ng-model="cotacao.selectedGrafico">
+												</label>
+			    							</div>
+			    						</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+				</div>
+				<div class="col-md-6">
+					<div class="panel panel-default">
+		                <div class="panel-heading">
+		                    <h3 class="panel-title"><img src="assets/images/flags/br.png"> Cotações Nacionais</h3>
+		                    <div class="pull-right" style="margin-top: -4.2%;">
+ 			              		<label title="Relatório Simples" class="btn btn-warning"> -->
+<!-- 			              			<i class="fa fa-table"></i> -->
+<!-- 		                    		<i class="fa fa-print"></i> -->
+<!-- 			              			<input type="checkbox" ng-model="selectedRelatorioNacional" -->
+<!-- 			              				ng-click="selectAllCheckBoxRelatorio(1)" > -->
+<!-- 			              		</label>
+			              		<label title="Relatório Gráficos" class="btn btn-danger">
+									<i class="fa fa-line-chart"></i>
+ 			                    	<i class="fa fa-print"></i>
+			              			<input type="checkbox" ng-model="selectedGraficoNacional"
+			              			ng-click="selectAllCheckBoxGrafico(1)" >
+			              		</label>
+			              	</div>
+		                </div>
+		                <div class="panel-body">
+			    			<div ng-repeat="cotacao in cotacaoNacionalList">
+			    				<div class="col-md-3">
+				    				<div class="panel panel-default">
+				    					<div class="panel-heading">
+				    						<div class="row">
+				    							<div class="col-md-6">
+				    								<img class="flags flags-big" src="assets/images/flags/{{cotacao.flag}}"><span class="flag-title">{{cotacao.nome}}</span>
+				    							</div>
+				    							<div class="col-md-6 pull-right">
+													<label title="Relatório Gráficos" class="btn btn-danger pull-right">
+														<i class="fa fa-line-chart"></i>
+														<input type="checkbox" ng-click="selectCheckBoxGrafico(0, cotacao.id)"
+													ng-model="cotacao.selectedGrafico">
+													</label>
+ 													<label title="Relatório Simples" class="btn btn-warning pull-right" style="margin: 0 5px 0 0;">
+ 														<i class="fa fa-table"></i>
+ 														<input type="checkbox" ng-click="selectCheckBoxRelatorio(0, cotacao.id)"
+										ng-model="cotacao.selectedRelatorio">
+													</label>
+													<button ng-click="abrirModalDetalhes(cotacao)" class="btn  btn-success pull-right" title="Visualizar Detalhes" style="margin: 0 5px 0 0;">
+														<i class="fa fa-list-alt"></i>
+													</button>
+													<button ng-click="abrirModalGrafico(cotacao)" class="btn  btn-primary pull-right" title="Visualizar Gráfico" style="margin: 0 5px 0 0;">
+														<span class="fa fa-line-chart"></span>
+													</button>
+				    							</div>
+				    						</div>
+				    					</div>
+				    					<div class="panel-body">
+				    						<div class="pull-left">
+												<h5><b>Tonelada</b> R$ {{cotacao.valorCIFReal}} - US$ {{cotacao.valorCIFDolar}} - EU$ {{cotacao.valorCIFEuro}}</h5>
+												<h5><b>Saca 60kg</b> R$ {{cotacao.valorCIFRealSaca60kg}} - US$ {{cotacao.valorCIFDolarSaca60kg}} - EU$ {{cotacao.valorCIFEuroSaca60kg}}</h5>
+				    						</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+		    	</div>
+		    </div> -->
+		    <div id="divPeriodo" class="row">
+		    	<div class="col-md-12">
+					<div class="panel panel-default">
+		                <div class="panel-heading">
+		                    <h3 class="panel-title"><i class="fa fa-calendar"></i> Período</h3>
+		                </div>
+		                <div class="panel-body">
+		                	<div class="col-md-2">
+								Saca 60kg
+								<label ng-click="modificarTipoGrafico()">
+								<i id="fa-grafico" class="fa fa-toggle-on rotate180 text-primary"></i>
+								</label>
+								Tonelada
+								<br>
+								Exibir Média: <input type="checkbox" ng-model="exibirMedia"
+		              					tooltip-placement="top" tooltip="Exibir Média">
+		                    </div>
+		                	<div class="col-md-5">
+						    	<div class="input-group datapicker">
+						    		<span class="input-group-addon" id="sizing-addon1">Inicial</span>
+				                	<input name="campoDataInicial" class="form-control" type="text" datepicker-popup="dd/MM/yyyy"
+				                    ng-model="dataInicial" is-open="dataInicialIsOpen" onkeydown="return forceDate(event);"/>
+					                <div class="input-group-btn">
+					                    <button type="button" class="btn btn-success" ng-click="openDataInicial()">
+					                    	<span class="fa fa-calendar"></span>
+					                    </button>
+					                </div>
+				   				</div>
+			   				</div>
+			   				<div class="col-md-5">
+				   				<div class="input-group datapicker">
+				   					<span class="input-group-addon" id="sizing-addon1">Final</span>
+						            <input name="campoDataFinal" class="form-control" type="text" datepicker-popup="dd/MM/yyyy"
+						            ng-model="dataFinal" is-open="dataFinalIsOpen" onkeydown="return forceDate(event);"/>
+						            <div class="input-group-btn">
+						                <button type="button" class="btn btn-success" ng-click="openDataFinal()">
+						                    <span class="fa fa-calendar"></span>
+						                </button>
+						            </div>
+						    	</div>
+					    	</div>
+					    </div>
+					</div>
+				</div>
+		    </div>
+
+		    <div id="divRelatorioSelecionado" class="row">
+		    	<div class="col-md-12">
+					<div class="panel panel-default">
+		                <div class="panel-heading">
+		                    <h3 class="panel-title"><i class="fa fa-calendar"></i> Relatório Selecionado  ||  Peso: <b>{{saca60kgTonelada}}</b>
+		                    	   ||  Exibir Média: <b>{{exibirMedia | filterBooleanI18N}}</b></h3>
+							<button type="button" style="margin-top: -24px;" class="btn btn-primary pull-right"
+									ng-click="imprimirRelatorioAgregado()" title="Imprimir Relatorio Agregado"
+									ng-disabled="!buttonImprimirRelatorioCompletoEnable">
+									<i class="fa fa-print"></i>
+<!-- 								<i class="fa fa-line-chart"></i> -->
+<!-- 		                    	PDF -->
+		                    </button>
+<!-- 							<button type="button" style="margin: -24px 5px 0 0;" class="btn btn-success pull-right" -->
+<!--  								ng-click="imprimirRelatorioCompleto()" title="Imprimir Relatorio Completo"> -->
+<!-- 								<i class="fa fa-line-chart"></i> -->
+<!-- 		                    	<i class="fa fa-print"></i> -->
+<!-- 		                    </button> -->
+		                    <button type="button" style="margin: -24px 5px 0 0;" class="btn btn-danger pull-right" ng-click="gerarRelatorioCompleto()" title="Visualizar Gráfico">
+<!-- 		                   		<i class="fa fa-line-chart"></i> -->
+		                    	<i class="fa fa-search"></i>
+		                    </button>
+<!-- 		                    <button type="button" style="margin: -24px 5px 0 0;" title="Imprimir Relatorio Simples" class="btn btn-warning pull-right" ng-click="imprimirRelatorioSimples()"> -->
+<!-- 		                   		<i class="fa fa-table"></i> -->
+<!-- 		                    	PDF -->
+<!-- 		                    </button> -->
+		                </div>
+		                <div class="panel-body">
+		                	<div id="graficoValorMercadoria" ></div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+         </div>
+     </div>
+</div>
+
+<!-- <section> -->
+<!-- 	<div directive-modal-detalhes-cotacao> -->
+<!-- </section> -->
+
+
+<!-- <section> -->
+<!-- 	<div directive-modal-grafico-cotacao> -->
+<!-- </section> -->

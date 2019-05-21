@@ -1,0 +1,229 @@
+<style>
+ .c3-region.regionGreen {
+   fill: green;
+ }
+.c3-region.regionRed {
+  fill: red;
+}
+/* .c3-line { */
+/*     stroke-width: 2.7px; */
+/* } */
+</style>
+
+<div id="divPaginaDashboardNacional" class="container-fluid">
+	<div class="panel panel-default panel-container">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-line-chart"></i> Relatório</h3>
+	        <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+				title="Tutoriais" ng-click="$parent.abrirModalInformacoes()">
+				<span class="fa fa-info-circle" aria-hidden="true"></span>
+			</button>
+         </div>
+         <div class="panel-body">
+         	<div class="row" style="margin-top: -13px;">
+         		<div class="col-md-12">
+                	<div class="col-md-1 none-padding">
+                		<div class="panel panel-default">
+                			<div class="panel-body">
+								<button type="button" class="btn-voltar btn btn-success btn-sm"
+									title="Voltar" ng-click="voltarPagina()">
+									<span class="fa fa-arrow-left" aria-hidden="true"></span>
+								</button>
+		                	</div>
+                		</div>
+                	</div>
+                	<div class="col-md-5 none-padding">
+                		<div class="panel panel-default">
+                			<div class="panel-body">
+		                		<div class="row">
+		                			<div class="col-md-1">
+										<span style="vertical-align: middle;"><b>Data: </b></span>
+		                			</div>
+		                			<div class="col-md-11">
+										<div class="input-group input-group-sm datapicker">
+							                <input name="campoDataCambio" class="form-control" type="text"
+							                   datepicker-popup="dd/MM/yyyy" ng-change="changeDataCambio()" ng-model="objetoDataCambioSelecionada"
+							                   is-open="dataCambioIsOpen" onkeydown="return forceDate(event);"
+							                   title="Data"/>
+							                <div class="input-group-btn">
+							                    <button type="button" class="btn btn-success" ng-click="openDataCambio()">
+							                    	<span class="fa fa-calendar"></span>
+							                    </button>
+							                </div>
+										</div>
+		                			</div>
+		                		</div>
+							</div>
+                		</div>
+					</div>
+					<div class="col-md-4 none-padding">
+						<div class="panel panel-default">
+							<div class="panel-body" style="margin-bottom: 9px;">
+								<span><b>Dólar: </b>{{cambio.valorDolar | filterMonetary}}</span>
+								<span style="font-size: 12px !important">   ({{cambio.valorDolar | filterDotToComma}})</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-2 none-padding">
+                		<div class="panel panel-default">
+                			<div class="panel-body">
+								<button type="button" class="btn btn-sm btn-block"
+									ng-class="{'btn-danger' : isAplicarLogistica, 'btn-cinza' : !isAplicarLogistica}"
+									title="Aplicar Logística" ng-click="aplicarLogistica()">
+									<span>Aplicar Logística</span>
+								</button>
+                			</div>
+                		</div>
+                	</div>
+				</div>
+			</div>
+
+			<!-- Cotações Nacionais -->
+			<div class="row" style="margin-bottom: -15px;">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-md-3 text-center">
+								<div ng-repeat="cotacao in cotacaoInternacionalList" style="display: inline-block;">
+									<a ng-click="selecionarCotacaoInternacional(cotacao)" ><img style="display: inline;" class="flag-button" title="{{cotacao.nome}}"
+										src="assets/images/flags/{{cotacao.flag}}"></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body" >
+		    			<div ng-repeat="cotacao in cotacaoNacionalList">
+		    				<div class="col-md-3 none-padding">
+			    				<div class="panel panel-default" ng-class="{'card-selected': cotacao.nacional == 0}" >
+			    					<div class="panel-body">
+					                    <div class="row">
+			    							<div class="col-md-4">
+			    								<img class="flags" src="assets/images/flags/{{cotacao.flag}}">
+			    							</div>
+			    							<div class="col-md-8">
+			    								<h5 class="nome-cotacao">{{cotacao.nome}}<span style="font-size: 10px;"> {{cotacao.descricao}}</span></h5> <!-- <h6>{{cotacao.descricao}}</h6> -->
+			    							</div>
+			    						</div>
+			    						<hr>
+			    						<div class="row">
+			    							<div class="col-md-8">
+			    								<p>
+				    								<span title="R$ {{cotacao.valorCustoImportacaoReal | filterMonetary}}">&nbsp;&nbsp;R$ <b>{{cotacao.valorCustoImportacaoReal | filterMonetary}}</b> sc/60kg</span>
+				    							<br>
+													<span title="US$ {{cotacao.valorCustoImportacaoDolar | filterMonetary}}">US$ <b>{{cotacao.valorCustoImportacaoDolar | filterMonetary}}</b> sc/60kg</span>
+			    								</p>
+			    							</div>
+			    							<div class="col-md-4">
+												<div class="pull-right">
+													<button type="button" ng-click="abrirModalDetalhes(cotacao)"
+														ng-show="{{cotacao.nacional == 0}}"
+														class="btn btn-success btn-sm" title="Logística">
+														<i class="fa fa-list-alt"></i>
+													</button>
+												</div>
+			    							</div>
+			    						</div>
+										<div ng-show="cotacao.nacional == 0">
+											<div class="row">
+												<div class="col-md-12">
+													<p style="margin: 5px 0 2px 0;">Diferencial</p>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+
+													<span ng-show="tipoMoeda == 'real'" title="Diferencial ES R$ {{cotacao.diferencialES | filterMonetarySemSinal}}">&nbsp;ES R$ <span ng-class="{'c-danger' : cotacao.diferencialES < 0 ,'c-blue' : cotacao.diferencialES >= 0}">{{cotacao.diferencialES | filterMonetarySemSinal}} </span>
+													</span>
+													<br ng-show="tipoMoeda == 'real'">
+													<span ng-show="tipoMoeda == 'real'" title="Diferencial RO R$ {{cotacao.diferencialRO | filterMonetarySemSinal}}">RO R$ <span ng-class="{'c-danger' : cotacao.diferencialRO < 0 ,'c-blue' : cotacao.diferencialRO >= 0}">{{cotacao.diferencialRO | filterMonetarySemSinal}} </span>
+													</span>
+
+													<span ng-show="tipoMoeda == 'dolar'" title="Diferencial ES US$ {{cotacao.diferencialESDolar | filterMonetarySemSinal}}">&nbsp;ES US$ <span ng-class="{'c-danger' : cotacao.diferencialES < 0 ,'c-blue' : cotacao.diferencialES >= 0}">{{cotacao.diferencialESDolar | filterMonetarySemSinal}} </span>
+													</span>
+													<br ng-show="tipoMoeda == 'dolar'">
+													<span ng-show="tipoMoeda == 'dolar'" title="Diferencial RO US$ {{cotacao.diferencialRODolar | filterMonetarySemSinal}}">RO US$ <span ng-class="{'c-danger' : cotacao.diferencialRO < 0 ,'c-blue' : cotacao.diferencialRO >= 0}">{{cotacao.diferencialRODolar | filterMonetarySemSinal}} </span>
+													</span>
+
+												</div>
+												<div class="col-md-6">
+													<span ng-class="{'c-danger' : cotacao.diferencialES < 0 ,'c-blue' : cotacao.diferencialES >= 0}"> {{cotacao.diferencialPercentualES | filterPercentageSemSinal}} </span> %
+													<br>
+													<span ng-class="{'c-danger' : cotacao.diferencialRO < 0 ,'c-blue' : cotacao.diferencialRO >= 0}"> {{cotacao.diferencialPercentualRO | filterPercentageSemSinal}} </span> %
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+					    	</div>
+					    </div>
+					</div>
+				</div>
+		    </div>
+
+		    <div class="row">
+				<div class="col-md-8 none-padding">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title"><i class="fa fa-line-chart"></i> Evolução Preços
+								<span ng-show="tipoMoeda == 'dolar'"><b>US$</b></span> <span ng-show="tipoMoeda == 'real'"><b>R$</b></span>
+							</h4>
+							<button id="buttonNacionalEvolucaoDolar" type="button" class="btn btn-info btn-xs pull-right"
+								style=" margin: -20px 0 0 3px;" title="US$" ng-click="modificarMoedaGrafico('dolar')">
+								<span>US$</span>
+							</button>
+					        <button id="buttonNacionalEvolucaoReal" type="button" class="btn btn-primary btn-xs pull-right"
+					        	style="margin: -20px 0 0 3px;" title="R$" ng-click="modificarMoedaGrafico('real')">
+								<span>R$</span>
+							</button>
+						</div>
+						<div id="divGraficoEvolucaoPrecoNacional" class="panel-body">
+							<div id="graficoEvolucaoPrecoNacional"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 none-padding">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title"><i class="fa fa-line-chart"></i> Diferencial
+								<span ng-show="tipoMoeda == 'dolar'"><b>US$</b></span> <span ng-show="tipoMoeda == 'real'"><b>R$</b></span>
+							 - Espírito Santo
+							 <span style="font-size: 13px">(média)</span>
+							</h4>
+							<button id="buttonNacionalDiferencialESDolar" type="button" class="btn btn-info btn-xs pull-right"
+								style="margin: -20px 0 0 3px;" title="US$" ng-click="modificarMoedaGrafico('dolar')">
+								<span>US$</span>
+							</button>
+					        <button id="buttonNacionalDiferencialESReal" type="button" class="btn btn-primary btn-xs pull-right"
+					        	style="margin: -20px 0 0 3px;" title="R$" ng-click="modificarMoedaGrafico('real')">
+								<span>R$</span>
+							</button>
+						</div>
+						<div id="divGraficoNacionalDiferencaPrecoES" class="panel-body">
+							<div id="graficoNacionalDiferencaPrecoES"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 none-padding" ng-show="false">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4 class="panel-title"><i class="fa fa-line-chart"></i> Diferencial
+							<span ng-show="tipoMoeda == 'dolar'"><b>US$</b></span> <span ng-show="tipoMoeda == 'real'"><b>R$</b></span>
+							- Rondônia</h4>
+							<button id="buttonNacionalDiferencialRODolar" type="button" class="btn btn-info btn-xs pull-right"
+								style="margin: -20px 0 0 3px;" title="US$" ng-click="modificarMoedaGrafico('dolar')">
+								<span>US$</span>
+							</button>
+					        <button id="buttonNacionalDiferencialROReal" type="button" class="btn btn-primary btn-xs pull-right"
+					        	style="margin: -20px 0 0 3px;" title="R$" ng-click="modificarMoedaGrafico('real')">
+								<span>R$</span>
+							</button>
+						</div>
+						<div id="divGraficoNacionalDiferencaPrecoRO" class="panel-body">
+							<div id="graficoNacionalDiferencaPrecoRO"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+         </div>
+     </div>
+</div>

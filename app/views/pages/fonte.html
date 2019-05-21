@@ -1,0 +1,188 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-container">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-newspaper-o"></i> Fontes e Metodologia</h3>
+                    <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Tutoriais" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+					<button type="button" class="btn btn-warning btn-sm pull-right" style="margin-top: -24px;"
+						title="Voltar" ng-click="voltarTemplate()">Voltar
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+                </div>
+                <div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="media">
+								<div class="media-left media-middle">
+									<a href="http://www.cecafe.com.br/" target="_blank">
+										<img class="media-object" src="assets/images/fontes/cecafe.png" alt="CECAFE">
+									</a>
+								</div>
+								<div class="media-body">
+									<h4 class="media-heading">Cecafe</h4>
+									<h5><b>Custos de Logísticas das Cotações Internacionais:</b> <b>Vietnam e Indonésia</b></h5>
+									<p><b>Descrição:</b> Os custos de logística são elaborados trimestralmente pelo CECAFÉ – Conselho dos Exportadores de Café do Brasil.</p>
+									<p><b>Metodologia:</b> Os custos de logística são utilizados para calcular os custos de importação de café dos países
+									 <b>Vietnam e Indonésia</b>, com base <b>FOB Santos</b>. Estes custos de logística são referentes a um container contendo 320 sacas de 60kg.
+										Os valores são atualizados trimestralmente pelo CECAFÉ. </p>
+									<p>
+										Fonte: <a href="http://www.cecafe.com.br/" target="_blank">http://www.cecafe.com.br/</a> <br/>
+										Fonte dos dados: <a href="http://www.cecafe.com.br/" target="_blank">http://www.cecafe.com.br/</a> <br/>
+									</p>
+
+								</div>
+							</div>
+							<hr>
+							<div class="media">
+								<div class="media-left media-middle">
+									<a href="http://www.oanda.com/" target="_blank">
+										<img class="media-object" src="assets/images/fontes/oanda.png" alt="Oanda">
+									</a>
+								</div>
+								<div class="media-body">
+									<h4 class="media-heading">Câmbio</h4>
+									<h5><b>Moedas:</b> <b>US Dolar, Euro</b></h5>
+									<p><b>Descrição:</b> OANDA is a leader in currency data and forex trading, offering leveraged trading, payment and data services for a wide range of organizations and investors.</p>
+									<p><b>Metodologia:</b> Os valores são sincronizados diariamente, inclusive nos fins de semana, os quais há variação do câmbio.
+										Os valores das cotações são calculados diáriamente de acordo com o câmbio corrente. Durante os final de semana e feriados, onde não haja variação da cotação,
+										os valores são repetidos do último dia útil, e calculados com o câmbio do dia.</p>
+									<p>
+										Fonte: <a href="http://www.oanda.com/" target="_blank">http://www.oanda.com/</a> <br/>
+										Fonte dos dados: <a href="https://www.oanda.com/solutions-for-business/historical-rates/main.html" target="_blank">https://www.oanda.com/solutions-for-business/historical-rates/main.html</a>
+									</p>
+
+								</div>
+							</div>
+							<hr>
+							<div class="media">
+								<div class="media-left media-middle">
+									<a href="http://www.commodity3.com/" target="_blank">
+										<img class="media-object" src="assets/images/fontes/commodity3.png" alt="Commodity">
+									</a>
+								</div>
+								<div class="media-body">
+									<h4 class="media-heading">Commodity3</h4>
+									<h5><b>Cotações:</b> <b>Vietnam e Indonésia</b></h5>
+									<p><b>Detalhes do café:</b>
+										<ul>
+											<li>
+												Indonésia:
+												Coffee Robusta, Indonesia EK1 60dfts, Grade 4, Nearby Shipment Fob Indonesian Ports
+											</li>
+											<li>
+												Vietnam:
+												Coffee Robusta, Vietnam Grade 2, Nearby Shipment Fob Vietnamese Ports
+											</li>
+<!-- 											<li> -->
+<!-- 												Uganda: -->
+<!-- 												Coffee Robusta, Ouganda std screen15, Nearby Shipment Fob Kampala -->
+<!-- 											</li> -->
+										</ul>
+									</p>
+									<p><b>Descrição:</b> Commodity3 is a new website dedicated to Commodity and Energy markets, whose original purpose is to provide their clients with calendar term structures, derived from values of futures markets, as well as physical prices and their historical timeseries.</p>
+									<p><b>Metodologia:</b> Diariamente é coletado os valores das cotações. Estes valores originalmente estão em <b>Tonelada/Euro</b>.
+										Este valor é então dividido por 1000 (TON -> KG), multiplicado por 60 (1kg -> 60kg), e multiplicado pelo valor do <b>Euro</b> do dia.
+										Resultando em <b>Saca 60kg/Real</b>.</p>
+									<p>Fonte: <a href="http://www.commodity3.com/" target="_blank">http://www.commodity3.com/</a></p>
+								</div>
+							</div>
+							<hr>
+							<div class="media">
+								<div class="media-left media-middle">
+									<a href="http://br.investing.com/" target="_blank">
+										<img class="media-object" src="assets/images/fontes/investing.png" alt="Investing.com">
+									</a>
+								</div>
+								<div class="media-body">
+									<h4 class="media-heading">Investing.com</h4>
+									<h5><b>Cotação:</b> <b>Londres</b></h5>
+									<p><b>Descrição:</b> Investing.com é uma fonte definitiva de ferramentas e informações relacionadas aos mercados financeiros, tais como cotações, fluxo contínuo de gráficos em tempo real, notícias financeiras atualizadas, análise técnica, lista e diretório de corretoras, calendário econômico, ferramentas e calculadoras.</p>
+									<p><b>Detalhes do café:</b> London Robusta Coffee Futures (LRCU6)</p>
+									<p><b>Metodologia:</b> Diariamente é coletado os valores das cotações. Estes valores originalmente estão em <b>Tonelada/Dolar</b>.
+										Este valor é então dividido por 1000 (TON -> KG), multiplicado por 60 (1kg -> 60kg), e multiplicado pelo valor do <b>Dolar</b> do dia.
+										Resultando em <b>Saca 60kg/Real</b>.</p>
+									<p>
+										Fontes: <a href="http://br.investing.com/" target="_blank">http://br.investing.com/</a> <br/>
+										Fonte dos dados: <a href="http://br.investing.com/commodities/london-coffee-historical-data" target="_blank">http://br.investing.com/commodities/london-coffee-historical-data</a>
+									</p>
+								</div>
+							</div>
+							<hr>
+							<div class="media">
+								<div class="media-left media-middle">
+									<a href="http://www.noticiasagricolas.com.br/" target="_blank"> <br/>
+										<img class="media-object" src="assets/images/fontes/na.png" alt="Notícias Agrícolas">
+									</a>
+								</div>
+								<div class="media-body">
+									<h4 class="media-heading">Notícias Agrícolas</h4>
+									<h5><b>Cotações:</b> <b>Espírito Santo (CCCV)</b></h5>
+									<p><b>Descrição:</b> O Notícias Agrícolas é uma das mais importantes fontes de informação do agronegócio brasileiro e fornece seu conteúdo para os meios de comunicação mais respeitados do setor.</p>
+									<p><b>Detalhes do café:</b> Café Conilon Tipo 7</p>
+									<p><b>Metodologia:</b> Diariamente é coletado o valor da cotação. Estes valores originalmente estão em <b>Saca 60kg/Real</b>.</p>
+									<p>
+										Fonte: <a href="http://www.noticiasagricolas.com.br/" target="_blank">http://www.noticiasagricolas.com.br/</a> <br/>
+										Fonte dos dados: <a href="http://www.noticiasagricolas.com.br/cotacoes/cafe/cafe-conillon-disponivel-vitoria-es" target="_blank">http://www.noticiasagricolas.com.br/cotacoes/cafe/cafe-conillon-disponivel-vitoria-es</a>
+									</p>
+								</div>
+							</div>
+							<hr>
+							<div class="media">
+								<div class="media-left media-middle">
+									<a href="http://www.cepea.esalq.usp.br/br/indicador/cafe.aspx" target="_blank">
+										<img class="media-object" src="assets/images/fontes/cepea.gif" alt="ESALQ / CEPEA">
+									</a>
+								</div>
+								<div class="media-body">
+									<h4 class="media-heading">ESALQ / CEPEA</h4>
+									<h5><b>Cotações:</b> <b>Espírito Santo (CEPEA)</b></h5>
+									<p><b>Especificação do produto:</b> café robusta tipo 6, peneira 13 acima, com 86 defeitos</p>
+									<p><b>Unidade de Medida:</b> saca 60 kg (R$ / sc)</p>
+									<p><b>Entrega:</b> a retirar na região produtora (Indicador não inclui frete)</p>
+									<p><b>Região de referência:</b> Colatina/ES e São Gabriel da Palha / ES</p>
+									<p><b>Base de Ponderação das regiões:</b> não existe; a média é aritimética</p>
+									<p><b>Taxa de desconto dos valores a prazo:</b> NPR (Nota Promissória Rural)</p>
+									<p><b>Impostos considerados:</b> o valor do Indicador não considera impostos</p>
+									<p><b>Periodicidade:</b> diária</p>
+									<p><b>Histórico:</b> desde novembro de 2001</p>
+									<p><b>Agentes consultados na pesquisa:</b> cooperativas, corretores, torrefadores e exportadores</p>
+									<p><b>Outros levantamentos de conillon:</b> tipo 7/8, bica corrida, no Espírito Santo e café com 400 defeitos em Rondônia</p>
+									<p><b>IMPORTANTE:</b> Os preços referem-se a negociações no mercado físico de lotes (entre empresas). Os indicadores em dólares americanos são calculados pela taxa de câmbio comercial para venda cotado às 16:30</p>
+									<p><b>Detalhes do café:</b> preço à vista por saca de 60kg líquido, tipo 6, peneira 13 acima, com 86 defeitos, valor descontado o Prazo de Pagamento pela taxa da NPR, a retirar na origem (ES).</p>
+									<p><b>Metodologia:</b> Diariamente é coletado o valor da cotação. Estes valores originalmente estão em <b>Saca 60kg/Real</b>.</p>
+									<p>
+										Fonte: <a href="http://cepea.esalq.usp.br" target="_blank">http://cepea.esalq.usp.br</a> <br/>
+										Fonte dos dados: <a href="http://www.cepea.esalq.usp.br/br/indicador/cafe.aspx" target="_blank">http://www.cepea.esalq.usp.br/br/indicador/cafe.aspx</a>
+									</p>
+								</div>
+							</div>
+							<hr>
+							<div class="media">
+								<div class="media-left media-middle">
+									<a href="http://www.canalrural.com.br/cotacao/cafe/" target="_blank">
+										<img class="media-object" src="assets/images/fontes/cr.png" alt="Canal Rural">
+									</a>
+								</div>
+								<div class="media-body">
+									<h4 class="media-heading">Canal Rural</h4>
+									<h5><b>Cotação:</b> <b>Rondônia</b></h5>
+									<p><b>Descrição:</b> A força do campo.</p>
+									<p><b>Detalhes do café:</b> Conillon 400 defeitos</p>
+									<p><b>Metodologia:</b> Diariamente é coletado o valor da cotação. Estes valores originalmente estão em <b>Saca 60kg/Real</b>.</p>
+									<p>
+										Fontes: <a href="http://www.canalrural.com.br/" target="_blank">http://www.canalrural.com.br/</a> <br/>
+										Fontes dos dados: <a href="http://www.canalrural.com.br/cotacao/cafe/" target="_blank">http://www.canalrural.com.br/cotacao/cafe/</a>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>

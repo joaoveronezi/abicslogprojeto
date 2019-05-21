@@ -1,0 +1,153 @@
+<style>
+.rule {
+    display: table;
+}
+
+.rule>div {
+    display: table-cell;
+    white-space:nowrap;
+}
+
+.line>div {
+    border-bottom: 1px solid silver;
+    height: 1px;
+}
+
+.words {
+    padding: 0 5px;
+}
+
+.line {
+    width: 50%;
+    vertical-align: middle;
+}
+</style>
+<div class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-container">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-globe"></i>
+						<b>Fonte ABICS: Valores exportados pelo Brasil para os países. Dados mensais</b>
+					</h3>
+					<button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Tutoriais" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="panel-body">
+					<form name="formConsultarAbicsDataPais" novalidate>
+						<div class="row">
+							<div class="col-md-3">
+								<label>Paises</label>
+								<select class="form-control" ng-model="paisSelecionadoList" multiple required> 
+									<option ng-repeat="pais in paisList" value="{{pais.id}}">{{pais.nome}}</option>
+								</select>
+							</div>
+							
+							<div class="col-md-3">
+								<label>Anos</label>
+<!-- 								<div class="panel panel-default pre-scrollable"> -->
+<!-- 									<label ng-repeat="yearL in yearList"> -->
+<!-- 										<input type="checkbox" name="anoList" value="{{yearL}}" ng-checked="year.indexOf(yearL) > -1"  -->
+<!-- 											ng-click="yearSelected(yearL)"> {{yearL}}										 -->
+<!-- 									</label> -->
+<!-- 								</div> -->
+								<select class="form-control" ng-model="anoSelecionadoList" multiple required> 
+									<option ng-repeat="ano in anoList" value="{{ano}}">{{ano}}</option>
+								</select>
+							</div>
+							
+<!-- 							<div class="col-md-3"> -->
+<!-- 								<label>Tipo</label> -->
+<!-- 								<label class="btn btn-default">Arábica<input type="radio" name="radioTipo" value="ARABICA" ng-model="modelRadioCommodity" ng-change="changeModelRadio()"></label> -->
+<!-- 								<label class="btn btn-default">Robusta<input type="radio" name="radioTipo" value="ROBUSTA" ng-model="modelRadioCommodity" ng-change="changeModelRadio()"></label> -->
+<!-- 								<label class="btn btn-default">Solúvel<input type="radio" name="radioTipo" value="SOLUBLE" ng-model="modelRadioCommodity" ng-change="changeModelRadio()"></label> -->
+<!-- 							</div> -->
+							
+							<div class="col-md-3">
+								<button type="button" class="btn btn-primary btn-block" ng-disabled="formConsultarAbicsDataPais.$invalid"
+									ng-click="consultar()">Consultar </button>
+							</div>
+						</div>
+					</form>
+					
+					<div class="row">
+						<div class="panel panel-default">
+<!-- 							<div class="panel-heading"> -->
+<!-- 								<h3 class="panel-title"><i class="fa fa-globe"></i> -->
+<!-- 									<b>Consultas</b> -->
+<!-- 								</h3> -->
+<!-- 							</div> -->
+							<div class="panel-body">
+								<div id="divEquivalenteSaca" class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title"><i class="fa fa-globe"></i>
+												<span><b>Equivalente em Sacas de 60kg</b></span>
+											</h3>
+										</div>
+										<div id="divGraficoEquivalenteSaca" class="panel-body">
+											<div id="graficoEquivalenteSaca"></div>
+											<br>
+											<div class="rule">
+											    <div class="line"><div></div></div>
+											    <div class="words">Variação</div>
+											    <div class="line"><div></div></div>
+											</div>
+											<br>
+											<div id="graficoVariacaoEquivalenteSaca" ></div>
+										</div>
+									</div>
+								</div>
+								
+							 	<div id="divReceitaCambial" class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title"><i class="fa fa-globe"></i>
+												<span><b>Receita Cambial (US$)</b></span>
+											</h3>
+										</div>
+										<div id="divGraficoReceitaCambial" class="panel-body">
+											<div id="graficoReceitaCambial"></div>
+											<br>
+											<div class="rule">
+											    <div class="line"><div></div></div>
+											    <div class="words">Variação</div>
+											    <div class="line"><div></div></div>
+											</div>
+											<br>
+											<div id="graficoVariacaoReceitaCambial"></div>
+										</div>
+									</div>
+								</div>
+
+								<div id="divPesoLiquido" class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title"><i class="fa fa-globe"></i>
+												<span><b>Peso Líquido (KG)</b></span>
+											</h3>
+										</div>
+										<div id="divGraficoPesoLiquido" class="panel-body">
+											<div id="graficoPesoLiquido"></div>
+											<br>
+											<div class="rule">
+											    <div class="line"><div></div></div>
+											    <div class="words">Variação</div>
+											    <div class="line"><div></div></div>
+											</div>
+											<br>
+											<div id="graficoVariacaoPesoLiquido"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

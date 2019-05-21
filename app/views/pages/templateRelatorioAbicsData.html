@@ -1,0 +1,253 @@
+<style>
+/* /* Selected cell */ */
+/* .ht_master tr > td.current { */
+/*   background-color: #F00; */
+/* } */
+
+/* /* Specific cell (B2) */ */
+/* .ht_master tr:nth-child(2) > td:nth-child(3) { */
+/*   background-color: #F00; */
+/* } */
+
+.estilofafa {
+   background-color: #CEC;
+}
+
+</style>
+
+<div id="divRelatorioData" class="container-fluid">
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-container">
+				<div class="panel-heading">
+<!-- 					<h3 class="panel-title"> -->
+<!-- 						<i class="fa fa-refresh"></i> Planilhas -->
+<!-- 					</h3> -->
+					
+<!-- 					<button type="button" class="btn btn-primary btn-sm pull-right" -->
+<!-- 						style="margin-top: -24px;" title="Tutoriais" -->
+<!-- 						ng-click="funcao()"> -->
+<!-- 						<span class="fa fa-info-circle" aria-hidden="true"></span> -->
+<!-- 					</button> -->
+						<div class="row">
+							<div class="col-md-2">
+								<h3 class="panel-title"><i class="fa fa-globe"></i><b> Abics Data</b>
+								<br>
+								Atualizado em: 31/12/2017
+								</h3>
+							</div>
+							<div class="col-md-10">
+								<div class="col-md-1">
+									<label>Relatório Dezembro</label>
+								</div>
+								<div class="col-md-2">
+									<select ng-model="mesRelatorioGeralInicial" class="form-control" required
+									ng-options="option.nome for option in mesRelatorioGeralList track by option.id">
+									</select>
+								</div>
+								<div class="col-md-2">
+									<select ng-model="anoRelatorioGeralInicial" class="form-control">
+										<option ng-repeat="ano in anoRelatorioGeralList" ng-value="{{ano}}">{{ano}}</option>
+									</select>
+								</div>
+								
+								<div class="col-md-5">
+									<b>Imprimir Excel </b>
+									<button type="button" class="btn btn-success" ng-click="imprimirRelatorioGeral()" title="Imprimir Excel"> 
+<!-- 										<i class="fa fa-file-excel-o" ></i> -->
+										<i class="fa fa-download"></i>
+									</button>
+								</div>
+								
+								<!-- 								<div class="col-md-6"> -->
+<!-- 									<div class="col-md-9"> -->
+<!-- 										<select id="selectTipoRelatorio" ng-change="clickCheckboxRelatorio()" ng-options="tipo for tipo in tipoRelatorioList" data-placeholder="Escolha o(s) relatório(s)..."  -->
+<!-- 											ng-model="tipoRelatorioSelecionadoList" style="width: 100%;" class="chosen-select" chosen multiple required> -->
+<!-- 										</select> -->
+<!-- 									</div> -->
+<!-- 									<div class="col-md-3"> -->
+<!-- 										<input ng-click="clickCheckboxAll()" ng-model="checkboxAll" type="checkbox"><b>Todos</b> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 								<div class="col-md-1"> -->
+<!-- 									<button type="button" class="btn btn-success" ng-click="imprimirRelatorioGeral()" title="Imprimir Excel">  -->
+<!-- 										<i class="fa fa-file-excel-o"></i> -->
+<!-- 									</button> -->
+<!-- 								</div> -->
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12">
+							
+								<div class="col-md-1">
+									Desempenho Mensal
+								</div>
+								<div class="col-md-1">
+									Exportador mensal e  acumulado ano
+								</div>
+								<div class="col-md-1">
+								</div>
+								<div class="col-md-1">
+									País Mensal
+								</div>
+								<div class="col-md-1">
+									País Acumulado
+								</div>
+								
+								<div class="col-md-1">
+									País Anual
+								</div>
+								
+								<div class="col-md-1">
+								</div>
+								
+								<div class="col-md-1">
+									Produto Mensal e Acumulado
+								</div>
+								
+								<div class="col-md-1">
+									Produto Anual
+								</div>
+								
+								<div class="col-md-1">
+								</div>
+								<div class="col-md-1">
+									País anual NCM 2101.11.90
+								</div>
+								
+								<div class="col-md-1">
+									País anual NCM 2101.12.00
+								</div>
+							</div>
+							
+							<div class="col-md-12">
+							
+								<div class="col-md-1">
+									<button type="button" class="btn btn-primary" title="Desempenho Mensal"
+										ng-click="desempenhoMensal()">
+										<i class="fa fa-file-excel-o" ></i>
+									</button>
+								</div>
+								<div class="col-md-1">
+									<button type="button" class="btn btn-primary" title="Exportador mensal e acumulado ano"
+										ng-click="exportadorMensalAcumuladoAno()">
+										<i class="fa fa-file-excel-o" ></i>
+									</button>
+								</div>
+								<div class="col-md-1">
+								</div>
+								<div class="col-md-1">
+									<button type="button" class="btn btn-primary" title="País Mensal"
+										ng-click="relatorioAbicsData(3)">
+										<i class="fa fa-file-excel-o" ></i>
+									</button>
+								</div>
+								<div class="col-md-1">
+									<button type="button" class="btn btn-primary" title="País Acumulado"
+										ng-click="relatorioAbicsData(4)">
+										<i class="fa fa-file-excel-o" ></i>
+									</button>
+								</div>
+								
+								<div class="col-md-1">
+									<button type="button" class="btn btn-primary" title="País Anual"
+										ng-click="relatorioAbicsDataAnual(7)">
+										<i class="fa fa-file-excel-o" ></i>
+									</button>
+								</div>
+								
+								<div class="col-md-1">
+								</div>
+								
+								<div class="col-md-1">
+									<button type="button" class="btn btn-primary" title="Produto Mensal e Acumulado"
+										ng-click="relatorioAbicsDataProduto()">
+										<i class="fa fa-file-excel-o" ></i>
+									</button>
+								</div>
+								
+								<div class="col-md-1">
+									<button type="button" class="btn btn-primary" title="Produto Anual"
+										ng-click="relatorioAbicsDataAnual(8)">
+										<i class="fa fa-file-excel-o" ></i>
+									</button>
+								</div>
+								
+								<div class="col-md-1">
+								</div>
+								<div class="col-md-1">
+									<button type="button" class="btn btn-primary" title="País anual NCM 2101.11.90"
+										ng-click="relatorioAbicsDataAnual(9)">
+										<i class="fa fa-file-excel-o" ></i>
+									</button>
+								</div>
+								
+								<div class="col-md-1">
+									<button type="button" class="btn btn-primary" title="País anual NCM 2101.12.00"
+										ng-click="relatorioAbicsDataAnual(10)">
+										<i class="fa fa-file-excel-o" ></i>
+									</button>
+								</div>
+							</div>
+						</div>
+				</div>
+				<div class="panel-body">
+				
+					<div class="row">
+					
+<!-- 						<div class="col-md-2"> -->
+							
+<!-- 							<button type="button" class="btn btn-primary btn-sm" title="Desempenho Mensal" -->
+<!-- 								ng-click="desempenhoMensal()"> -->
+<!-- 								<span class="fa fa-info-circle" aria-hidden="true"></span> -->
+<!-- 								Desempenho Mensal -->
+<!-- 							</button> -->
+							
+<!-- 							<br/><br/><br/><br/> -->
+							
+<!-- 							<button type="button" class="btn btn-success" title="Exportador mensal e acumulado ano" -->
+<!-- 								ng-click="exportadorMensalAcumuladoAno()"> -->
+<!-- 								Exportador mensal e acumulado ano -->
+<!-- 								<span class="fa fa-info-circle" aria-hidden="true"></span> -->
+<!-- 							</button> -->
+<!-- 						</div> -->
+						
+						<div class="col-md-12">
+							<div id="planilhaExcel"></div>
+							
+							<br>
+							
+							<div id="planilhaExcelSegunda"></div>
+							
+						</div>
+					
+					</div>
+					
+					<br/>
+				
+<!-- 					<div class="row"> -->
+<!-- 						<div class="col-md-4"> -->
+<!-- 							<div id="divPdf" class="col-xs-12 no-padding div-pdf text-center"> -->
+<!-- 								<object class="pdf" data="{{source_pdf}}" type="application/xls"> -->
+<!-- 									<embed src="{{source_pdf}}" type="application/xls" /> -->
+<!-- 								</object> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-md-4"> -->
+<!-- 							<object class="pdf" data="{{source_pdf}}" type="application/vnd.ms-excel"> -->
+<!-- 								<embed src="{{source_pdf}}" type="application/vnd.ms-excel" /> -->
+<!-- 							</object> -->
+<!-- 						</div> -->
+<!-- 						<div class="col-md-4"> -->
+<!-- 							<iframe src="{{source_pdf}}"  -->
+<!-- 								style="width:600px; height:500px;" frameborder="0"></iframe> -->
+<!-- 						</div> -->
+						
+<!-- 					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

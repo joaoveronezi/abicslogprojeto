@@ -1,0 +1,160 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-container">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-truck"></i> Logística Histórico</h3>
+		            <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Informações" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+                </div>
+            	<div class="panel-body">
+            		<div class="row">
+            			<div class="col-md-12">
+            				<div class="panel panel-default">
+            					<div class="panel-heading">
+            						<h3 class="panel-title">Planilhas Cadastradas</h3>
+            					</div>
+            					<div class="panel-body">
+		            				<div class="table-responsive">
+		            					<div>
+											<table class="table table-bordered table-striped table-hover">
+												<thead>
+													<tr>
+														<td>Data</td>
+														<td>Selecione</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="data in dataList track by $index">
+							                        	<td>{{data.data}}</td>
+							                        	<td class="text-center">
+															<button type="button" ng-click="selecionarLogistica(data)"
+																	class="btn btn-primary btn-table"
+							                              			tooltip-placement="top" tooltip="Selecionar Logística" >
+							                                	<span class="fa fa-search" aria-hidden="true"></span>
+															</button>
+														</td>
+							                        </tr>
+												</tbody>
+											</table>
+										</div>
+		            				</div>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
+            		<div class="row">
+            			<div class="col-md-12">
+            				<div class="panel panel-default">
+            					<div class="panel-heading">
+            						<h3 class="panel-title">FOB Porto de Santos</h3>
+            					</div>
+            					<div class="panel-body">
+		            				<div class="table-responsive">
+		            					<div>
+											<table class="table table-bordered table-striped table-hover">
+												<thead>
+													<tr>
+														<td></td>
+														<td ng-repeat="cotacao in cotacaoInternacionalList">{{cotacao.nome}}</td>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Valor do Frete <span style="color: blue;">(US$)</span></td>
+														<td ng-repeat="obj in valorFreteList">{{obj.valor}}</td>
+													</tr>
+													<tr>
+														<td>Taxa do Seguro <span style="color: red;">(%)</span></td>
+														<td ng-repeat="obj in taxaSeguroList">{{obj.valor}}</td>
+													</tr>
+													<tr>
+														<td>Importação <span style="color: green;">(R$)</span></td>
+														<td ng-repeat="obj in importacaoList">{{obj.valor}}</td>
+													</tr>
+													<tr>
+														<td>Demurrage do conteiner <span style="color: blue;">(US$)</span></td>
+														<td ng-repeat="obj in demurrageContainerList">{{obj.valor}}</td>
+													</tr>
+													<tr>
+														<td>THC <span style="color: green;">(R$)</span></td>
+														<td ng-repeat="obj in thcList">{{obj.valor}}</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+		            				</div>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
+            		<div class="row">
+            			<div class="col-md-12">
+            				<div class="panel panel-default">
+            					<div class="panel-heading">
+            						<h3 class="panel-title">Despesas Portuárias</h3>
+            					</div>
+            					<div class="panel-body">
+            						<div class="table-responsive">
+            							<table class="table table-bordered table-striped table-hover">
+            								<thead>
+												<tr>
+													<td></td>
+													<td ng-repeat="cotacao in cotacaoInternacionalList">{{cotacao.nome}}</td>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>Liberação BL <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in liberacaoList">{{obj.valor}}</td>
+												</tr>
+												<tr>
+													<td>Desconsolidação <span style="color: blue;">(US$)</span></td>
+													<td ng-repeat="obj in desconsolidacaoList">{{obj.valor}}</td>
+												</tr>
+												<tr>
+													<td>Taxa Registro Siscarga <span style="color: blue;">(US$)</span></td>
+													<td ng-repeat="obj in siscargaList">{{obj.valor}}</td>
+												</tr>
+												<tr>
+													<td>ISPS <span style="color: blue;">(US$)</span></td>
+													<td ng-repeat="obj in ispsList">{{obj.valor}}</td>
+												</tr>
+												<tr>
+													<td>Taxa Util. SISCOMEX <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in siscomexList">{{obj.valor}}</td>
+												</tr>
+												<tr>
+													<td>Armazenagem <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in armazenagemList">{{obj.valor}}</td>
+												</tr>
+												<tr>
+													<td>Horário Despachante <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in despachanteList">{{obj.valor}}</td>
+												</tr>
+												<tr>
+													<td>Sindicato Desp. Aduaneiros <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in sindicatoAduaneirosList">{{obj.valor}}</td>
+												</tr>
+												<tr>
+													<td>Transporte Porto - Fábrica <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in transportePortoFabricaList">{{obj.valor}}</td>
+												</tr>
+												<tr>
+													<td>Marinha Mercante <span style="color: green;">(R$)</span></td>
+													<td ng-repeat="obj in marinhaMercanteList">{{obj.valor}}</td>
+												</tr>
+											</tbody>
+            							</table>
+            						</div>
+            					</div>
+            				</div>
+            			</div>
+            		</div>
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>

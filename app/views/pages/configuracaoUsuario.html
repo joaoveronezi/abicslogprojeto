@@ -1,0 +1,114 @@
+<style>
+.input-group {
+	display: inline-table;
+}
+</style>
+<div class="message-alerta">
+   	<div directive-alerta-sistema-template></div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-container">
+                <div class="panel-heading">
+					<h4 class="panel-title"><i class="fa fa-user"></i> Perfil</h4>
+
+			        <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Informações" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+                </div>
+                <div class="panel-body">
+					<div class="alert alert-warning" ng-show="objetoUsuario.primeiroLogin == 0">
+
+						<p>Bem vindo ao ABICS!</p><br/>
+						<p>Neste seu primeiro acesso precisamos identificar seu nome e uma nova senha.</p>
+						<p>Por favor, digite seu nome e uma nova senha.</p>
+						<p>Clique em salvar e assim o menu de acesso ficara disponível.</p>
+
+					</div>
+		            <form name="formConfiguracaoUsuario" novalidate>
+		            	<div class="row">
+		            		<div class="col-md-6">
+		            			<div class="input-group">
+									<span class="input-group-addon" >Nome</span>
+									<input name="nome" id="nome" type="text" class="form-control" maxlength="75"
+									placeholder="Nome do usuário" ng-model="objetoUsuario.nome" required>
+								</div>
+		            		</div>
+		            		<div class="col-md-6">
+								<div class="input-group">
+									<span class="input-group-addon" >Email</span>
+									<input name="email" id="email" type="text" disabled 
+										class="form-control" placeholder="Email" ng-model="objetoUsuario.email" >
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div ng-show="objetoUsuario.primeiroLogin != 0">
+									<label>
+										<span ng-show="senhaDisabled" class="label label-default" style="cursor: pointer;" id="sizing-addon1">Habilitar edição de senha</span>
+										<span ng-show="!senhaDisabled" class="label label-default" style="cursor: pointer;" id="sizing-addon1">Desabilitar edição de senha</span>
+										<input style="display: none;" type="checkbox" ng-model="senhaDisabled" value="Senha" ng-show="objetoUsuario.primeiroLogin == 1"/>
+									</label>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="input-group">
+									<span class="input-group-addon" id="sizing-addon1">Login</span>
+									<input name="login" id="login" type="text" 
+										class="form-control" placeholder="Login" ng-model="login" disabled>
+								</div>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="input-group">
+									<span class="input-group-addon" id="sizing-addon1">Senha</span>
+									<input name="senha" id="senha" type="password" maxlength="75"
+											class="form-control" placeholder="Senha" ng-model="objetoUsuario.senha"
+											ng-disabled="senhaDisabled" ng-change="checkRepetirSenha()" required>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="input-group">
+									<span class="input-group-addon" id="sizing-addon1">Repetir senha</span>
+									<input name="repetirSenha" id="repetirSenha" type="password" maxlength="75"
+											class="form-control" placeholder="Repetir senha" ng-model="repetirSenha"
+											ng-disabled="senhaDisabled" ng-change="checkRepetirSenha()" required>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-4">
+								<button type="button" class="btn btn-success btn-sm" title="Atualizar usuario" ng-click="salvar()" ng-disabled="formConfiguracaoUsuario.$invalid && !senhaDisabled">Salvar
+									<span class="fa fa-ok" aria-hidden="true"></span>
+								</button>
+							</div>
+						</div>
+<!-- 						<div class="input-group receber-relatorio"> -->
+<!-- 							<div class="well well-sm">Receber relatorio?</div> -->
+<!-- 							<label class="btn btn-danger"> -->
+<!-- 								<input type="radio" ng-model="objetoUsuario.tipoRelatorio" value="0">Desativado -->
+<!-- 							</label> -->
+<!-- 				     	    <label class="btn btn-success"> -->
+<!-- 				     	    	<input type="radio" ng-model="objetoUsuario.tipoRelatorio" value="1">Diário -->
+<!-- 				     	    </label> -->
+<!-- 							<label class="btn btn-primary"> -->
+<!-- 								<input type="radio" ng-model="objetoUsuario.tipoRelatorio" value="2">Semanal -->
+<!-- 							</label> -->
+<!-- 				     	    <label class="btn btn-warning"> -->
+<!-- 				     	    	<input type="radio" ng-model="objetoUsuario.tipoRelatorio" value="3">Quinzenal -->
+<!-- 				     	    </label> -->
+<!-- 				     	    <label class="btn btn-info"> -->
+<!-- 				     	    	<input type="radio" ng-model="objetoUsuario.tipoRelatorio" value="4">Mensal -->
+<!-- 				     	    </label> -->
+<!-- 						</div> -->
+			        </form>
+			    </div>
+			</div>
+	    </div>
+	</div>
+</div>

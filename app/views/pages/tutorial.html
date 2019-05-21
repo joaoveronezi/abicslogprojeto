@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav" style="overflow-y:scroll;">
+                      <li>
+                        <a href="" data-toggle="collapse" data-target="#abicsData"  style="margin-top: 30px;">
+                        	<i class="fa fa-globe"></i> Abics Data <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="abicsData" class="collapse">
+                            <li>
+                                <a ng-click="carregarVideo('Relatório Brasil', 'abicsDataRelatorioBrasil.mp4')"> Relatório Brasil</a>
+                            </li>
+                            <li>
+                                <a ng-click="carregarVideo('Relatório Mundo', 'abicsDataRelatorio.mp4')"> Relatório Mundo</a>
+                            </li>
+							<li>
+                                <a ng-click="carregarVideo('Relatório ABICS Pais', 'abicsDataPais.mp4')"> ABICS Pais</a>
+                            </li>
+                            <li>
+                                <a ng-click="carregarVideo('Relatório ABICS Empresa/Produto', 'abicsDataEmpresaProduto.mp4')"> ABICS Empresa/Produto</a>
+                            </li>
+							<li>
+                                <a ng-click="carregarVideo('Relatório COMTRADE Mensal', 'abicsDataComtrade.mp4')"> COMTRADE Mensal</a>
+                            </li>
+							<li>
+                                <a ng-click="carregarVideo('Relatório USDA Anual', 'abicsDataUSDA.mp4')"> USDA Anual</a>
+                            </li>
+                         </ul>
+                    </li>
+                    <li>
+                        <a ng-click="carregarVideo('Convite', 'invite.mp4')" ><i class="fa fa-play"></i> Convite</a>
+                    </li>
+                    <li>
+                        <a href="" data-toggle="collapse" data-target="#sincronizacao"><i class="fa fa-refresh"></i> Sincronização <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="sincronizacao" class="collapse">
+                            <li>
+                                <a ng-click="carregarVideo('Informações Coletadas', 'auto-sync.mp4')">Informações Coletadas</a>
+                            </li>
+                            <li>
+                                <a ng-click="carregarVideo('Informações Coletadas Histórico', 'manual-sync.mp4')">Informações Coletadas Histórico</a>
+                            </li>
+                         </ul>
+                    </li>
+                    <li>
+                        <a ng-click="carregarVideo('Dashboard', 'dashboard.mp4')"><i class="fa fa-tachometer"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a ng-click="carregarVideo('Histórico', 'history.mp4')"><i class="fa fa-history"></i> Histórico</a>
+                    </li>
+                    <li>
+                        <a ng-click="carregarVideo('Fontes', 'fonts.mp4')"><i class="fa fa-newspaper-o"></i> Fontes</a>
+                    </li>
+                    <li>
+                        <a href="" data-toggle="collapse" data-target="#relatorio"><i class="fa fa-truck"></i> Logística <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="relatorio" class="collapse">
+                            <li>
+                                <a ng-click="carregarVideo('Logística Atual', 'log.mp4')"> Atual</a>
+                            </li>
+                            <li>
+                                <a ng-click="carregarVideo('Logística Histórico', 'log.mp4')">Histórico</a>
+                            </li>
+                         </ul>
+                    </li>
+                   	<li>
+                        <a ng-click="carregarVideo('Primeiro Login', 'first-login.mp4')"><i class="fa fa-sign-in"></i> Primeiro Login</a>
+                    </li>
+					<li>
+                        <a ng-click="carregarVideo('Contato', 'contato.mp4')"><i class="fa fa-send"></i> Contato</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="col-md-10 col-md-offset-2">
+            <div class="panel panel-default" style="margin-top: 5%;">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa fa-play"></i> Tutoriais  {{nomeVideo}}</h4>
+                </div>
+                <div class="panel-body">
+                    <video id="videoCaminhoVideo" controls>
+                        <source id="sourceCaminhoVideo" src="{{caminhoVideo}}">
+                        Desculpe! Mas o seu navegador não suporta o player de vídeo. Atualize o seu navegador.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

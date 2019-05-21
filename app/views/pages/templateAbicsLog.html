@@ -1,0 +1,103 @@
+<style>
+	.clickable {
+		background-color: #f5f5f5;
+		transition: background-color 0.2s ease;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		margin-bottom: 10px;
+		border-style: solid;
+		border-width: 1px;
+		border-radius: 10px;
+		border-color: #ddd;
+	}
+	.clickable:hover {
+		color: #926868;
+ 		box-shadow: 0 2px 12px 0 rgba(0,0,0,0.2), 0 2px 16px 0 rgba(0,0,0,0.19);
+ 		width: 95%;
+	}
+	
+	.clickable:hover > h4 {
+		font-size: 22px;
+	}
+	
+	.clickable > h4 {
+		font-size: 20px;
+	}
+	
+	a.fill-div {
+    	text-decoration: none;
+		color: #333;
+	}
+	
+	.alinhado-log {
+		padding: 7px;
+	}
+	
+	.alinhado-log .clickable > img {
+		padding-top: 4%;
+		width: 85%;
+	}
+	
+	#divLog {
+		padding-bottom: 1%;
+	}
+</style>
+
+<div id="divLog" class="container-fluid">
+	<div class="panel panel-default panel-container">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-globe"></i><b> Abics Log</b></h3>
+		</div>
+		<div class="panel-body">
+			<div id="divLog" class="col-md-8 col-md-offset-2" ng-if="checkLog()">
+				<div id="divDashboard" class="col-md-3 text-center alinhado-log" ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 1 || permissaoUsuarioLogado == 2 || permissaoUsuarioLogado == 3)">
+					<a class="fill-div" title="Dashboard" ng-click="mudarPagina('dashboard')">
+						<div class="clickable">
+							<h4>Dashboard<br><br></h4>
+							<img src="assets/images/dashboard.png">
+						</div>
+					</a>
+				</div>
+				<div class="col-md-3 text-center alinhado-log" ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 1 || permissaoUsuarioLogado == 2)">
+					<a class="fill-div" title="Histórico" ng-click="mudarPagina('historico')">
+						<div class="clickable">
+							<h4>Histórico<br><br></h4>
+							<img src="assets/images/historico.png">
+						</div>
+					</a>
+				</div>
+				<div id="divLogistica" class="col-md-3 text-center alinhado-log" ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 1 || permissaoUsuarioLogado == 2 || permissaoUsuarioLogado == 4)">
+					<a class="fill-div" title="Logística" ng-click="mudarPagina('logistica')">
+						<div class="clickable">
+							<h4>Logística<br><br></h4>
+							<img src="assets/images/logistica.png">
+						</div>
+					</a>
+				</div>
+				<div id="divFontes" class="col-md-3 text-center alinhado-log">
+					<a class="fill-div" title="Fontes (Abics Log)" ng-click="mudarPagina('fonte')">
+						<div class="clickable">
+							<h4>Fontes<br>(Abics Log)</h4>
+							<img src="assets/images/abicsfont.png">
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-3 col-md-offset-0 col-sm-offset-0 col-sm-3 col-xs-6 text-center">
+			<img src="assets/images/marca.jpg" style="width: 24%;">
+		</div>
+		<div class="col-md-3 col-md-offset-0 col-sm-offset-0 col-sm-3 col-xs-6 text-center">
+			<img src="assets/images/logo-ufla.png" style="width: 55%;">
+		</div>
+		<div class="col-md-3 col-md-offset-0 col-sm-offset-0 col-sm-3 col-xs-6 col-xs-offset-1 text-center">
+			<img src="assets/images/logo-inova.png" style="width: 62%;">
+		</div>
+		<div class="col-md-3 col-md-offset-0 col-sm-offset-0 col-sm-3 col-xs-5 text-center">
+			<img src="assets/images/logo-cim.png" style="width: 46%;">
+		</div>
+	</div>
+</div>

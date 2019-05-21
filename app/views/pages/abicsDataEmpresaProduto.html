@@ -1,0 +1,237 @@
+<style>
+ .c3-region.regionGreen {
+   fill: green;
+ }
+.c3-region.regionRed {
+  fill: red;
+}
+/* .c3-line { */
+/*     stroke-width: 2.7px; */
+/* } */
+
+.rule {
+    display: table;
+}
+
+.rule>div {
+    display: table-cell;
+    white-space:nowrap;
+}
+
+.line>div {
+    border-bottom: 1px solid silver;
+    height: 1px;
+}
+
+.words {
+    padding: 0 5px;
+}
+
+.line {
+    width: 50%;
+    vertical-align: middle;
+}
+
+#divEmpProd {
+	padding-bottom: 8.2%;
+}
+</style>
+
+<div id="divEmpProd" class="container-fluid">
+	<!-- EMPRESA -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-container">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-building-o"></i>
+						<b>Fonte ABICS: Valores exportados pelo Brasil, discriminados por empresa ou por tipo do café. Dados mensais</b>
+					</h3>
+					<button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Tutoriais" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+					
+					<button type="button" class="btn btn-warning btn-sm pull-right" style="margin-top: -24px;"
+						title="Voltar" ng-click="voltarTemplate()">Voltar
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="panel-body">
+					<form name="formConsultarAbicsData" novalidate>
+						<div class="col-md-2">
+							<div class="panel panel-default" style="padding-bottom: 8%">
+								<div class="panel-heading">
+									<h3 class="panel-title">Dados referentes a:</h3>
+								</div>
+								<div class="panel-body">
+									<label class="btn btn-default">Empresa<input type="radio" name="radioTipo" value="empresa" ng-model="modelRadioEmpresaProduto" ng-change="changeModelRadio()"></label>
+									<label class="btn btn-default">Café Solúvel<input type="radio" name="radioTipo" value="produto" ng-model="modelRadioEmpresaProduto" ng-change="changeModelRadio()"></label>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="panel panel-default" style="padding-bottom: 7%">
+								<div class="panel-heading">
+									<h3 class="panel-title">Ano</h3>
+								</div>
+								<div class="panel-body">
+									<select id="selectAno" ng-change="clickCheckboxAno()" ng-options="ano for ano in anoList" data-placeholder="Escolha o(s) ano(s)..." 
+											ng-model="anosSelecionadoList" style="width: 100%; margin-bottom: 10px;" class="chosen-select" chosen multiple required>
+									</select>
+		                			<input ng-click="clickCheckboxAll()" ng-model="checkboxAll" type="checkbox"><b>Todos</b>
+<!-- 									<ul class="form-group list-year"> -->
+<!-- 										<li> -->
+<!-- 											<div class="checkbox"> -->
+<!-- 							                	<label class="btn btn-default"><input class="input-space-left" ng-model="checkboxAll"  -->
+<!-- 							                	ng-change="clickCheckboxAno(checkboxAll)" ng-click="clickCheckboxAll()" type="checkbox"><b>Todos</b></label> -->
+<!-- 							                </div> -->
+<!-- 						                </li> -->
+<!-- 						                <li> -->
+<!-- 						                	<div class="checkbox"> -->
+<!-- 							                	<label class="btn btn-default"><input class="input-space-left" ng-click="clickCheckboxAno(ano2016)"  -->
+<!-- 							                	ng-model="ano2016" type="checkbox">2016</label> -->
+<!-- 							                </div> -->
+<!-- 						                </li> -->
+<!-- 										<li> -->
+<!-- 											<div class="checkbox"> -->
+<!-- 							                	<label class="btn btn-default"><input class="input-space-left" ng-click="clickCheckboxAno(ano2015)"  -->
+<!-- 							                	ng-model="ano2015" type="checkbox">2015</label> -->
+<!-- 							                </div> -->
+<!-- 										</li> -->
+<!-- 										<li> -->
+<!-- 											<div class="checkbox"> -->
+<!-- 							                	<label class="btn btn-default"><input class="input-space-left" ng-click="clickCheckboxAno(ano2014)"  -->
+<!-- 							                	ng-model="ano2014" type="checkbox">2014</label> -->
+<!-- 							                </div> -->
+<!-- 							            </li> -->
+<!-- 						                <li> -->
+<!-- 						                	<div class="checkbox"> -->
+<!-- 							                	<label class="btn btn-default"><input class="input-space-left" ng-click="clickCheckboxAno(ano2013)"  -->
+<!-- 							                	ng-model="ano2013" type="checkbox">2013</label> -->
+<!-- 							                </div> -->
+<!-- 										</li> -->
+<!-- 										<li> -->
+<!-- 							                <div class="checkbox"> -->
+<!-- 							                	<label class="btn btn-default"><input class="input-space-left" ng-click="clickCheckboxAno(ano2012)"  -->
+<!-- 							                	ng-model="ano2012" type="checkbox">2012</label> -->
+<!-- 											</div> -->
+<!-- 										</li> -->
+<!-- 										<li> -->
+<!-- 							                <div class="checkbox"> -->
+<!-- 							                	<label class="btn btn-default"><input class="input-space-left" ng-click="clickCheckboxAno(ano2011)"  -->
+<!-- 							                	ng-model="ano2011" type="checkbox">2011</label> -->
+<!-- 											</div> -->
+<!-- 										</li> -->
+<!-- 										<li> -->
+<!-- 							                <div class="checkbox"> -->
+<!-- 							                	<label class="btn btn-default"><input class="input-space-left" ng-click="clickCheckboxAno(ano2010)"  -->
+<!-- 							                	ng-model="ano2010" type="checkbox">2010</label> -->
+<!-- 							            	</div> -->
+<!-- 							            </li> -->
+<!-- 									</ul> -->
+								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title" ng-show="modelRadioEmpresaProduto == 'empresa'">Empresa</h3>
+									<h3 class="panel-title" ng-show="modelRadioEmpresaProduto == 'produto'">Tipo de Café</h3>
+								</div>
+								<div class="panel-body" ng-show="modelRadioEmpresaProduto == 'empresa'">
+									<select id="selectEmpresa" ng-options="empresa.nome for empresa in empresaList" data-placeholder="Escolha a(s) empresa(s)..." 
+											ng-model="empresaSelecionadaList" style="width: 100%; margin-bottom: 10px;" class="chosen-select" chosen multiple>
+									</select>
+									<!-- <select ng-show="modelRadioEmpresaProduto == 'empresa'" class="form-control" id="selectEmpresa" ng-model="empresaSelecionadaList" required 
+										style="height: 280px; margin-bottom: 10px;" multiple>
+										<option ng-repeat="empresa in empresaList" value="{{empresa.id}}">{{empresa.nome}}</option>
+									</select> -->
+								</div>
+								<div class="panel-body" ng-show="modelRadioEmpresaProduto == 'produto'">
+									<select id="selectProduto" ng-options="produto.nome for produto in produtoList" data-placeholder="Escolha o(s) produto(s)..." 
+											ng-model="produtoSelecionadaList" style="height: 280px; width: 100%; margin-bottom: 10px;" chosen class="chosen-select" multiple>
+									</select>
+									<!-- <select ng-show="modelRadioEmpresaProduto == 'produto'" class="form-control select-height" id="selectProduto" ng-model="produtoSelecionadaList" required 
+										style="height: 280px; margin-bottom: 10px;" multiple>
+										<option ng-repeat="produto in produtoList" value="{{produto.id}}">{{produto.nome}}</option>
+									</select> -->
+								</div>
+							</div>
+							<button ng-show="modelRadioEmpresaProduto == 'empresa'" type="button" class="btn btn-primary btn-block" 
+								ng-disabled="empresaSelecionadaList == '' || formConsultarAbicsData.$invalid" 
+								ng-click="consultar()">Consultar</button>
+							<button ng-show="modelRadioEmpresaProduto == 'produto'" type="button" class="btn btn-primary btn-block" 
+							ng-disabled="produtoSelecionadaList == '' || formConsultarAbicsData.$invalid" 
+							ng-click="consultar()">Consultar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-balance-scale"></i><b> Peso Líquido (KG)</b>
+					</h3>
+				</div>
+				<div id="divGraficoAbicsPeso" class="panel-body">
+					<div id="graficoAbicsPeso"></div>
+					<br>
+					<div class="rule">
+					    <div class="line"><div></div></div>
+					    <div class="words">Variação</div>
+					    <div class="line"><div></div></div>
+					</div>
+					<br>
+					<div id="graficoAbicsVariacaoPeso"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-usd"></i><b> Receita Cambial (US$)</b>
+					</h3>
+				</div>
+				<div id="divGraficoAbicsReceita" class="panel-body">
+					<div id="graficoAbicsReceita"></div>
+					<br>
+					<div class="rule">
+					    <div class="line"><div></div></div>
+					    <div class="words">Variação</div>
+					    <div class="line"><div></div></div>
+					</div>
+					<br>
+					<div id="graficoAbicsVariacaoReceita"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<i class="fa fa-database"></i><b> Equivalente em Sacas de 60kg</b>
+					</h3>
+				</div>
+				<div id="divGraficoAbicsSaca60kg" class="panel-body">
+					<div id="graficoAbicsSaca60kg"></div>
+					<br>
+					<div class="rule">
+					    <div class="line"><div></div></div>
+					    <div class="words">Variação</div>
+					    <div class="line"><div></div></div>
+					</div>
+					<br>
+					<div id="graficoAbicsVariacaoSaca60kg"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

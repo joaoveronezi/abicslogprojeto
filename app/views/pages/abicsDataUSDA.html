@@ -1,0 +1,119 @@
+<div class="container-fluid">
+
+	<!-- INICIO USDA -->
+ 	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-container">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-globe"></i>
+						<b>Fonte USDA: Valores de produção, importação e exportação de acordo com o país. Dados anuais.</b>
+					</h3>
+					<button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Tutoriais" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="panel-body">
+					<form name="formConsultarAbicsDataUSDA" novalidate>
+						<div class="row">
+							<div class="col-md-3">
+								<label>Paises</label>
+								<select class="form-control" ng-model="paisSelecionadoListUSDA" multiple required> 
+									<option ng-repeat="pais in paisListUSDA" value="{{pais}}">{{pais}}</option>
+								</select>
+							</div>
+							
+							<div class="col-md-3">
+								<label>Anos</label>
+								<select class="form-control" ng-model="anosSelecionadoListUSDA" multiple required> 
+									<option ng-repeat="ano in anoListUSDA" value="{{ano}}">{{ano}}</option>
+								</select>
+							</div>
+							
+							<div class="col-md-3">
+								<label>Tipo</label><br>
+<!-- 								<label class="btn btn-default">Total<input type="radio" name="radioTipo" value="TOTAL" ng-model="modelRadioCommodity"></label> -->
+								<label class="btn btn-default" style="font-size: 11px">Arábica<input type="radio" name="radioTipo" value="ARABICA" ng-model="modelRadioCommodity" ng-change="changeModelRadio()"></label>
+								<label class="btn btn-default" style="font-size: 11px">Robusta<input type="radio" name="radioTipo" value="ROBUSTA" ng-model="modelRadioCommodity" ng-change="changeModelRadio()"></label>
+								<label class="btn btn-default" style="font-size: 11px">Grão<input type="radio" name="radioTipo" value="GRAO" ng-model="modelRadioCommodity" ng-change="changeModelRadio()"></label>
+								<label class="btn btn-default" style="font-size: 11px">Solúvel<input type="radio" name="radioTipo" value="SOLUBLE" ng-model="modelRadioCommodity" ng-change="changeModelRadio()"></label>
+							</div>
+							
+							<div class="col-md-3">
+								<button type="button" class="btn btn-primary btn-block" ng-disabled="formConsultarAbicsDataUSDA.$invalid"
+									ng-click="consultarUSDA()">Consultar USDA</button>
+							</div>
+						</div>
+					</form>
+					
+					<div class="row">
+						<div class="panel panel-default">
+<!-- 							<div class="panel-heading"> -->
+<!-- 								<h3 class="panel-title"><i class="fa fa-globe"></i> -->
+<!-- 									<b>Consultas</b> -->
+<!-- 								</h3> -->
+<!-- 							</div> -->
+							<div class="panel-body">
+								<div id="divExportacaoUSDA" class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title"><i class="fa fa-globe"></i>
+												<span ng-show="modelRadioCommodity == 'SOLUBLE'"><b>Soluble Exports (1000 60 KG BAGS)</b></span>
+												<span ng-show="modelRadioCommodity == 'ARABICA'"><b>Arábica Exports (1000 60 KG BAGS)</b></span>
+												<span ng-show="modelRadioCommodity == 'ROBUSTA'"><b>Robusta Exports (1000 60 KG BAGS)</b></span>
+												<span ng-show="modelRadioCommodity == 'GRAO'"><b>Grão Exports (Arábica + Robusta) (1000 60 KG BAGS)</b></span>
+											</h3>
+										</div>
+										<div id="divGraficoUSDAExportacao" class="panel-body">
+											<span ng-show="modelRadioCommodity == 'ARABICA'"><b>Arábica não possui EXPORTAÇÃO</b></span>
+											<span ng-show="modelRadioCommodity == 'ROBUSTA'"><b>Robusta não possui EXPORTAÇÃO</b></span>
+											<div id="graficoUSDAExportacao"></div>
+										</div>
+									</div>
+								</div>
+								
+							 	<div id="divImportacaoUSDA" class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title"><i class="fa fa-globe"></i>
+												<span ng-show="modelRadioCommodity == 'SOLUBLE'"><b>Soluble Imports (1000 60 KG BAGS)</b></span>
+												<span ng-show="modelRadioCommodity == 'ARABICA'"><b>Arábica Imports (1000 60 KG BAGS)</b></span>
+												<span ng-show="modelRadioCommodity == 'ROBUSTA'"><b>Robusta Imports (1000 60 KG BAGS)</b></span>
+												<span ng-show="modelRadioCommodity == 'GRAO'"><b>Grão Imports (Arábica + Robusta) (1000 60 KG BAGS)</b></span>
+											</h3>
+										</div>
+										<div id="divGraficoUSDAImportacao" class="panel-body">
+											<span ng-show="modelRadioCommodity == 'ARABICA'"><b>Arábica não possui IMPORTAÇÃO</b></span>
+											<span ng-show="modelRadioCommodity == 'ROBUSTA'"><b>Robusta não possui IMPORTAÇÃO</b></span>
+											<div id="graficoUSDAImportacao"></div>
+										</div>
+									</div>
+								</div>
+
+								<div id="divConsumeUSDA" class="col-md-4">
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h3 class="panel-title"><i class="fa fa-globe"></i>
+												<span ng-show="modelRadioCommodity == 'SOLUBLE'"><b>Soluble Consume Domestic (1000 60 KG BAGS)</b></span>
+												<span ng-show="modelRadioCommodity == 'ARABICA'"><b>Arábica Production (1000 60 KG BAGS)</b></span>
+												<span ng-show="modelRadioCommodity == 'ROBUSTA'"><b>Robusta Production (1000 60 KG BAGS)</b></span>
+												<span ng-show="modelRadioCommodity == 'GRAO'"><b>Grão --- (Arábica + Robusta) (1000 60 KG BAGS)</b></span>
+											</h3>
+										</div>
+										<div id="divGraficoUSDAConsume" class="panel-body">
+											<span ng-show="modelRadioCommodity == 'GRAO'"><b>Grão não possui informação</b></span>
+											<div id="graficoUSDAConsume"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	 	
+ 	<!-- FIM USDA -->
+
+ </div>

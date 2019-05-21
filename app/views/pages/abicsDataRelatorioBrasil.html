@@ -1,0 +1,368 @@
+<style>
+ .c3-region.regionGreen {
+   fill: green;
+ }
+.c3-region.regionRed {
+  fill: red;
+}
+
+.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+.rule {
+    display: table;
+}
+
+.rule>div {
+    display: table-cell;
+    white-space:nowrap;
+}
+
+.line>div {
+    border-bottom: 1px solid silver;
+    height: 1px;
+}
+
+.words {
+    padding: 0 5px;
+}
+
+.line {
+    width: 50%;
+    vertical-align: middle;
+}
+
+table tfoot > tr {
+	background-color: #f3f0f0;
+	color: #e84d4b;
+}
+
+hr {
+	width: 97%;
+	padding-top: 2px;
+}
+
+#panelBodyTabela {
+	padding-top: 8px;
+}
+
+#divTotalGeral {
+    background: #f3f0f0;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+</style>
+<div class="container-fluid" id="abicsDataRelatorioBrasil">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-container">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-globe"></i>
+						<b>Relatório Brasil: O total que o país exportou. Dados discriminados por país. Dados Mensais. </b>
+					</h3>
+			        <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Tutoriais" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+
+					<button type="button" class="btn btn-warning btn-sm pull-right" style="margin-top: -24px;"
+						title="Acordos Comerciais" ng-click="voltarTemplate()">Voltar
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+				</div>
+				
+				<div class="panel-body">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title"><i class="fa fa-globe"></i>
+								<b>Fontes: Exportação </b>
+							</h3>
+						</div>
+						<div class="panel-body">
+							<div class="col-md-6" id="divDadosAbics">					
+								<input id="idRadioDadosAbics" type="radio" name="radioTipo" value="abics" 
+										ng-model="fonteSelecionado">
+								<label id="labelRadioDadosAbics" for="idRadioDadosAbics">Abics</label>
+								<img src="assets/images/fontes/abics.png" alt="Abics" width="9%">
+							</div>
+							<div class="col-md-6" id="divDadosComtrade">
+								<input id="idRadiodadosComtrade" type="radio" name="radioTipo" value="comtrade" 
+										ng-model="fonteSelecionado">
+								<label id="labelRadiodadosComtrade" for="idRadiodadosComtrade">Comtrade</label>
+								<img src="assets/images/fontes/comtrade.png" alt="Comtrade" width="30%">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6">
+			<span>País (Destino)</span>
+			<select ng-options="pais.nome for pais in paisList" data-placeholder="Escolha o(s) país(es)..." ng-model="paisSelecionadoList" 
+					chosen class="chosen-select" chosen style="width: 100%;" multiple>
+			</select>
+		</div>
+		<div class="col-md-6">
+			<span>Continente (Destino)</span>
+			<select ng-options="continente.nome for continente in continenteList" data-placeholder="Escolha o(s) continente(s)..." ng-model="continenteSelecionadoList"
+					chosen class="chosen-select" chosen style="width: 100%;" multiple>
+			</select>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-6">
+			<span>Bloco Econômico (Destino)</span>
+			
+			<select ng-options="blocoEconomico.nome for blocoEconomico in blocoEconomicoList" data-placeholder="Escolha o(s) bloco(s) econômico(s)..." ng-model="blocoEconomicoSelecionadoList" 
+					chosen class="chosen-select" chosen style="width: 100%;" multiple>
+			</select>
+			<!-- <select class="form-control" ng-options="blocoEconomico.nome for blocoEconomico in blocoEconomicoList"  title="{{blocoEconomico.nome}}"
+		   		ng-model="blocoEconomicoSelecionadoList" multiple ng-change="changeBlocoEconomicoSelecionado()">
+		    </select> -->
+		</div>
+		<div class="col-md-3" id="divMesInicial">
+			<span>Mês Inicial: </span>
+			<select ng-model="mesInicial" class="form-control">
+				<option disabled value="">-- Selecione um mês inicial --</option>
+				<option ng-repeat="mes in mesList" ng-value="{{mes}}">{{mes}}</option>
+			</select>
+		</div>
+		<div class="col-md-3">
+			<span>Ano Inicial:</span>
+			<select ng-model="anoInicial" class="form-control">
+				<option ng-repeat="ano in anoList" ng-value="{{ano}}">{{ano}}</option>
+			</select>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-3 col-md-offset-6" id="divMesFinal">
+			<span>Mês Final: </span>
+			<select ng-model="mesFinal" class="form-control">
+				<option disabled value="">-- Selecione um mês final --</option>
+				<option ng-repeat="mes in mesList" ng-value="{{mes}}">{{mes}}</option>	
+			</select>
+		</div>
+		<div class="col-md-3">
+			<span>Ano Final:</span>
+			<select ng-model="anoFinal" class="form-control">
+				<option ng-repeat="ano in anoList" ng-value="{{ano}}">{{ano}}</option>
+			</select>
+		</div>
+	</div>
+	<br><br>
+
+
+	<div class="row">
+		<div class="col-md-5">
+			<button class="btn btn-warning btn-width pull-left"  ng-click="limparConsulta()" >Limpar Consulta
+	       	</button>
+		</div>
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-5">
+			<button class="btn btn-success btn-width pull-right"  ng-click="consultar(false, 'anual')" >Consultar
+	       	</button>
+		</div>	
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-6 text-right" ng-show="botaoTipoGrafico == true">
+			<button id="buttonGraficoAnual" type="button" class="btn btn-default"
+				title="Gráfico Anual" ng-click="consultar(false, 'anual')">
+				<span><b>Gráfico Anual</b></span>
+			</button>
+		</div>
+		<div class="col-md-6 text-left" ng-show="botaoTipoGrafico == true">
+			<button id="buttonGraficoSequencial" type="button" class="btn btn-default"
+				title="Gráfico Sequencial" ng-click="consultar(false, 'sequencial')">
+				<span><b>Gráfico Sequencial</b></span>
+			</button>
+		</div>
+	</div>
+	<br>	
+	
+	<div id="divGraficoAbics" class="row" ng-show="fonte == 'abics'">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-md-4" ng-show="graficoAbicsDadosPeso.countPaises > 1">
+							<h4 class="panel-title"><i class="fa fa-line-chart"></i> Gráfico {{fonte}}
+								<span ng-show="tipoDadosGrafico == 'peso'"><b>Peso</b></span>
+								<span ng-show="tipoDadosGrafico == 'receita'"><b>Receita</b></span>
+								<span ng-show="tipoDadosGrafico == 'saca60kg'"><b>Saca 60kg</b></span>
+							</h4>
+						</div>
+						<div class="col-md-8" ng-show="graficoAbicsDadosPeso.countPaises <= 1 || graficoAbicsDadosPeso.countPaises == undefined">
+							<h4 class="panel-title"><i class="fa fa-line-chart"></i> Gráfico {{fonte}}
+								<span ng-show="tipoDadosGrafico == 'peso'"><b>Peso</b></span>
+								<span ng-show="tipoDadosGrafico == 'receita'"><b>Receita</b></span>
+								<span ng-show="tipoDadosGrafico == 'saca60kg'"><b>Saca 60kg</b></span>
+							</h4>
+						</div>
+						<div class="col-md-4 text-center" ng-show="graficoAbicsDadosPeso.countPaises > 1">
+							<button ng-show="agregado == false" id="buttonAgregado" type="button" class="btn btn-danger"
+								title="Agregar dados" ng-click="consultar(true, 'sequencial')">
+								<span><b>Agregar Dados</b></span>
+							</button>
+							<button ng-show="agregado == true" id="buttonAgregado" type="button" class="btn btn-success"
+								title="Agregar dados" ng-click="consultar(false, 'sequencial')">
+								<span><b>Desagregar Dados</b></span>
+							</button>
+						</div>
+						<div class="col-md-4">
+							<button id="buttonTipoGraficoSaca" type="button" class="btn btn-info btn-xs pull-right"
+								title="Saca 60kg" ng-click="modificarDadosGrafico('saca60kg','abics')">
+								<span><b>Saca 60kg</b></span>
+							</button>
+							<button id="buttonTipoGraficoReceita" type="button" class="btn btn-info btn-xs pull-right" 
+								title="Receita" ng-click="modificarDadosGrafico('receita','abics')">
+								<span><b>Receita</b></span>
+							</button>
+							<button id="buttonTipoGraficoPeso" type="button" class="btn btn-primary btn-xs pull-right"
+								title="Peso" ng-click="modificarDadosGrafico('peso','abics')">
+								<span><b>Peso</b></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div id="graficoAbicsPeso" ng-show="tipoDadosGrafico == 'peso'"></div>
+					<div id="graficoAbicsReceita" ng-show="tipoDadosGrafico == 'receita'"></div>
+					<div id="graficoAbicsSaca60kg" ng-show="tipoDadosGrafico == 'saca60kg'"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12" ng-show="anual">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-md-12">
+							<h4 class="panel-title" ng-show="anual"><i class="fa fa-line-chart"></i> Variação {{tipoDadosGrafico}}</h4>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div id="graficoAbicsVariacaoPeso" ng-show="tipoDadosGrafico == 'peso' && anual"></div>
+					<div id="graficoAbicsVariacaoReceita" ng-show="tipoDadosGrafico == 'receita' && anual"></div>
+					<div id="graficoAbicsVariacaoSaca60kg" ng-show="tipoDadosGrafico == 'saca60kg' && anual"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div id="divGraficoComtrade" class="row"  ng-show="fonte == 'comtrade'">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-md-4" ng-show="graficoComtradeDadosNetWeight.countPaises > 1">
+							<h4 class="panel-title"><i class="fa fa-line-chart"></i> Gráfico {{fonte}}
+								<span ng-show="tipoDadosGrafico == 'netweight'"><b>NetWeight (KG)</b></span>
+								<span ng-show="tipoDadosGrafico == 'tradevalue'"><b>Trade Value (US$)</b></span>
+							</h4>
+						</div>
+						<div class="col-md-8" ng-show="graficoComtradeDadosNetWeight.countPaises <= 1 || graficoComtradeDadosNetWeight.countPaises == undefined">
+							<h4 class="panel-title"><i class="fa fa-line-chart"></i> Gráfico {{fonte}}
+								<span ng-show="tipoDadosGrafico == 'netweight'"><b>NetWeight (KG)</b></span>
+								<span ng-show="tipoDadosGrafico == 'tradevalue'"><b>Trade Value (US$)</b></span>
+							</h4>
+						</div>
+						<div class="col-md-4 text-center" ng-show="graficoComtradeDadosNetWeight.countPaises > 1">
+							<button ng-show="agregado == false" id="buttonAgregado" type="button" class="btn btn-danger"
+								title="Agregar dados" ng-click="consultar(true, 'sequencial')">
+								<span><b>Agregar Dados</b></span>
+							</button>
+							<button ng-show="agregado == true" id="buttonAgregado" type="button" class="btn btn-success"
+								title="Agregar dados" ng-click="consultar(false, 'sequencial')">
+								<span><b>Desagregar Dados</b></span>
+							</button>
+						</div>
+						<div class="col-md-4">
+							<button id="buttonTipoGraficoTradeValue" type="button" class="btn btn-primary btn-xs pull-right" 
+								title="Trade Value (US$)" ng-click="modificarDadosGrafico('tradevalue','comtrade')">
+								<span><b>Trade Value (US$)</b></span>
+							</button>
+							<button id="buttonTipoGraficoNetWeight" type="button" class="btn btn-info btn-xs pull-right"
+								title="NetWeight (KG)" ng-click="modificarDadosGrafico('netweight','comtrade')">
+								<span><b>NetWeight (KG)</b></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div id="graficoComtradeNetWeight" ng-show="tipoDadosGrafico == 'netweight'"></div>
+					<div id="graficoComtradeTradeValue" ng-show="tipoDadosGrafico == 'tradevalue'"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12" ng-show="anual">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-md-12">
+							<h4 class="panel-title" ng-show="anual"><i class="fa fa-line-chart"></i> Variação {{tipoDadosGrafico}}</h4>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div id="graficoComtradeVariacaoTradeValue" ng-show="tipoDadosGrafico == 'tradevalue' && anual"></div>
+					<div id="graficoComtradeVariacaoNetWeight" ng-show="tipoDadosGrafico == 'netweight' && anual"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="panel panel-default panel-container">
+		<div class="panel-heading">
+			<div class="row">
+				<div class="col-md-8">
+					<h3 class="panel-title"><i class="fa fa-globe"></i>
+						Tabela de <b>{{modelRadioTipo}}</b> da fonte <b>{{fonte}}</b>
+					</h3>
+				</div>
+				<div class="col-md-4">
+					<button type="button" class="btn pull-right"  ng-disabled="tabelaList.length == 0 || tabelaList == undefined"
+							ng-class="{'btn-danger' : tabelaList.length == 0 || tabelaList == undefined, 'btn-success': tabelaList.length != 0 && tabelaList != undefined}" ng-click="imprimirRelatorio()" title="Imprimir Excel"><i class="fa fa-file-excel-o"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="panel-body" id="panelBodyTabela">
+			<div class="row text-center" ng-show="divSomaTotal" id="divTotalGeral">
+				<div class="col-md-3">
+					<h4><b style="color: #e84d4b;">SOMA TOTAL DA CONSULTA</b></h4>
+				</div>
+				<div class="col-md-3" ng-show="fonte == 'abics'">
+					<h5><b>Peso: </b><b style="color: #e84d4b;">{{totalGeralPeso}}</b></h5>
+				</div>
+				<div class="col-md-3" ng-show="fonte == 'abics'">
+					<h5><b>Receita: </b><b style="color: #e84d4b;">{{totalGeralReceita}}</b></h5>
+				</div>
+				<div class="col-md-3" ng-show="fonte == 'abics'">
+					<h5><b>Saca: </b><b style="color: #e84d4b;">{{totalGeralSaca60kg}}</b></h5>
+				</div>
+				<div class="col-md-4" ng-show="fonte == 'comtrade'">
+					<h5><b>Trade Value: </b><b style="color: #e84d4b;">{{totalGeralTradeValue}}</b></h5>
+				</div>
+				<div class="col-md-4" ng-show="fonte == 'comtrade'">
+					<h5><b>Net Weight: </b><b style="color: #e84d4b;">{{totalGeralNetWeight}}</b></h5>
+				</div>
+			</div>
+			<div ng-show="divSomaTotal" class="row">
+				<hr style="margin-top: 5px">
+			</div>
+			<div id="tabelaFontes"></div>
+        </div>
+	</div>
+</div>
+	
+<section>
+	<div directive-modal-validacao-relatorio-brasil>
+</section>

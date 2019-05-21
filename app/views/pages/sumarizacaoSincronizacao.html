@@ -1,0 +1,107 @@
+<div class="message-alerta">
+   	<div directive-alerta-sistema-template></div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+    	<div class="col-md-12">
+    		<div class="panel panel-default panel-container">
+                <div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-refresh"></i> Sincronização Automática</h3>
+			        <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Tutoriais" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+	           </div>
+	           <div class="panel-body">
+	           		<div class="row">
+						<div id="divCambio"  class="col-md-4">
+							<div class="panel panel-default">
+				                <div class="panel-heading">
+									<h3 class="panel-title"><i class="fa fa-exchange"></i> Câmbio</h3>
+							        <button type="button" class="btn btn-success btn-sm pull-right" style="margin-top: -24px;"
+										title="Coletar Câmbio" ng-click="rodarCrawlerCambio()"
+										ng-show="$parent.permissaoUsuarioLogado == 1">
+										<span class="fa fa-refresh" aria-hidden="true"></span>
+									</button>
+					           </div>
+					           <div class="panel-body">
+						           	<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th class="text-center">Data</th>
+													<th class="text-center">Dólar</th>
+													<th class="text-center">Euro</th>
+													<th class="text-center">E/D</th>
+													<th class="text-center">status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="sumCambio in sumarizacaoCambioList track by $index">
+													<td class="text-center">{{sumCambio.data | unixtimeDateWithoutHourFilter}}</td>
+													<td class="text-center">{{sumCambio.valorDolar | filterMonetary}} <span style="font-size: 12px !important">   ({{sumCambio.valorDolar | filterDotToComma}})</span></td>
+													<td class="text-center">{{sumCambio.valorEuro | filterMonetary}} <span style="font-size: 12px !important">   ({{sumCambio.valorEuro | filterDotToComma}})</span></td>
+													<td class="text-center">{{sumCambio.valorEuroDolar | filterMonetary}}</td>
+									                <td class="text-center" ng-class="{'c-danger' : sumCambio.status == '0' ,'c-success' : sumCambio.status == '1'}" >
+						                                {{sumCambio.status | filterStatus}}
+						                            </td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+					 		</div>
+					 	</div>
+						<div id="divCommodity" class="col-md-8">
+							<div class="panel panel-default">
+				   				<div  class="panel-heading">
+									<h3 class="panel-title"><i class="fa fa-bar-chart"></i> Cotações</h3>
+									<button ng-show="$parent.permissaoUsuarioLogado == 1"  
+										type="button" class="btn btn-success btn-sm pull-right" style="margin-top: -24px;"
+										title="Coletar Cotações" ng-click="rodarCrawlerCotacao()">
+										<span class="fa fa-refresh" aria-hidden="true"></span>
+									</button>
+				           		</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th class="text-center">Data</th>
+													<th class="text-center">Cotação</th>
+													<th class="text-center">Nacional</th>
+													<th class="text-center">Coletado</th>
+													<th class="text-center">sc/60kg (R$)</th>
+													<th class="text-center">FOB (R$)</th>
+													<th class="text-center">sc/60kg (US$)</th>
+													<th class="text-center">FOB (US$)</th>
+													<th class="text-center">status</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr ng-repeat="sumCotacao in sumarizacaoCotacaoList track by $index">
+													<td class="text-center">{{sumCotacao.data | unixtimeDateWithoutHourFilter}}</td>
+													<td class="text-center">{{sumCotacao.cotacaoNome}} {{sumCotacao.cotacaoDescricao}}</td>
+													<td class="text-center">{{sumCotacao.cotacaoNacional | filterCotacaoNacional}}</td>
+													<td class="text-center" ng-show="primeiroLogin == 1">{{sumCotacao.valorColetado | filterMonetary}}</td>
+													<td class="text-center">{{sumCotacao.valorMercadoriaSaca60kgReal | filterMonetary}}</td>
+													<td class="text-center">{{sumCotacao.valorCustoImportacaoSaca60kgReal | filterMonetary}}</td>
+													<td class="text-center">{{sumCotacao.valorMercadoriaSaca60kgDolar | filterMonetary}}</td>
+													<td class="text-center">{{sumCotacao.valorCustoImportacaoSaca60kgDolar | filterMonetary}}</td>
+									                <td class="text-center" ng-class="{'c-danger' : sumCotacao.status == '0' ,'c-success' : sumCotacao.status == '1'}" >
+						                                {{sumCotacao.status | filterStatus}}
+						                            </td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+				         </div>
+					</div>
+	           </div>
+           </div>
+		</div>
+	</div>
+</div>

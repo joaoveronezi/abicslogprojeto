@@ -1,0 +1,80 @@
+<div class="message-alerta">
+   	<div directive-alerta-sistema-template></div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default panel-container">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><i class="fa fa-adjust fa-fw"></i> Itens</h4>
+			        <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Informações" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+                    <button type="button" class="btn btn-success btn-sm pull-right" style="margin-top: -24px; margin-right: 8px"
+						title="Cadastrar novo item" ng-click="abrirModalCadastrarItem()">Adicionar
+						<span class="fa fa-plus" aria-hidden="true"></span>
+					</button>
+
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive table-overflow">
+		                <table class="table table-striped" id="tbl-item" name="tbl-item">
+		                    <thead>
+		                    	<tr>
+			                    	<th class="text-center">#</th>
+			                        <th class="text-center">Nome</th>
+			                        <th class="text-center">Descrição</th>
+			                        <th class="text-center">Unidade</th>
+			                        <th class="text-center">Valor</th>
+			                        <th class="text-center">Ações</th>
+			                    </tr>
+		                    </thead>
+
+		                    <tbody>
+		                        <tr ng-repeat="item in itemList track by $index">
+		                        	<td>{{item.id}}</td>
+		                        	<td>{{item.nome}}</td>
+		                        	<td>{{item.descricao}}</td>
+		                        	<td>{{item.unidade | filterUnidadeItem}}</td>
+		                        	<td>{{item.valor}}</td>
+         							<td class="text-center">
+         								<div class="btn-group-vertical" role="group">
+<!-- 			                            	<button type="button" ng-click="abrirModalAdicionarValorItem(item)" class="btn btn-success btn-table" tooltip-placement="top" tooltip="Adicionar valor item"> -->
+<!-- 			                                	<span class="fa fa-plus" aria-hidden="true"></span> -->
+<!-- 			                                </button> -->
+<!-- 			                              	&nbsp;&nbsp; -->
+											<button type="button" ng-click="abrirModalEditarItem(item)" class="btn btn-primary btn-table" tooltip-placement="top" tooltip="Editar item">
+			                                	<span class="fa fa-pencil" aria-hidden="true"></span>
+			                                </button>
+											<!-- &nbsp;&nbsp; -->
+											<button type="button" ng-click="abrirModalRemoverItem(item)" class="btn btn-danger btn-table" tooltip-placement="top" tooltip="Remover item">
+			                                	<span class="fa fa-trash" aria-hidden="true"></span>
+											</button>
+										</div>
+		                            </td>
+		                        </tr>
+		                    </tbody>
+		                </table>
+					</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section>
+	<div directive-modal-cadastrar-item />
+</section>
+
+<!-- <section> -->
+<!-- 	<div directive-modal-adicionar-valor-item /> -->
+<!-- </section> -->
+
+<section>
+	<div directive-modal-editar-item />
+</section>
+
+<section>
+	<div directive-modal-remover-item />
+</section>

@@ -1,0 +1,66 @@
+<div class="message-alerta">
+   	<div directive-alerta-sistema-template></div>
+</div>
+<div class="container-fluid">
+	<div class="row">
+    	<div class="col-md-12">
+        	<div class="panel panel-default panel-container">
+            	<div class="panel-heading">
+                	<h3 class="panel-title"><i class="fa fa-users fa-fw"></i> Usuários</h3>
+
+			        <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Informações" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+
+                	<button type="button" class="btn btn-success btn-sm pull-right" style="margin-top: -24px; margin-right: 8px"
+						title="Convidar usuário" ng-click="abrirModalCadastrarUsuario()" >Convidar
+						<span class="fa fa-envelope" aria-hidden="true"></span>
+					</button>
+            	</div>
+		        <div class="panel-body">
+					<div class="table-responsive table-overflow">
+		                <table class="table table-striped" id="tbl-item" name="tbl-item">
+		                    <thead>
+		                        <th class="text-center">Nome</th>
+		                        <th class="text-center">Login</th>
+		                        <th class="text-center">Email</th>
+		                        <th class="text-center">Permissão</th>
+		                        <th class="text-center">Ativo</th>
+		                        <th class="text-center">Ações</th>
+		                    </thead>
+
+		                    <tbody>
+		                        <tr ng-repeat="usuario in usuarioList track by $index">
+		                        	<td>{{usuario.nome}}</td>
+		                        	<td>{{usuario.login}}</td>
+		                        	<td>{{usuario.email}}</td>
+		                        	<td>{{usuario.permissao | filterPermissaoUsuario}}</td>
+		                        	<td ng-class="{'c-danger' : usuario.ativo == '0' ,'c-success' : usuario.ativo == '1'}">
+		                        		{{usuario.ativo | filterAtivoUsuario}}</td>
+		                        	<td class="text-center" >
+										<button type="button" ng-click="abrirModalRemoverUsuario(usuario)" 
+												ng-class="{'btn btn-danger btn-table' : usuario.ativo == '1' ,
+												'btn btn-success btn-table' : usuario.ativo == '0'}"
+		                              			tooltip-placement="top" tooltip="Administrar usuário" >
+		                                	<span ng-class="{'fa fa-trash' : usuario.ativo == '1' ,
+												'fa fa-check' : usuario.ativo == '0'}" aria-hidden="true"></span>
+										</button>
+									</td>
+		                        </tr>
+		                    </tbody>
+		                </table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- <section> -->
+<!-- 	<div directive-modal-cadastrar-usuario> -->
+<!-- </section> -->
+
+<section>
+	<div directive-modal-remover-usuario>
+</section>

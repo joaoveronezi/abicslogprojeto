@@ -1,0 +1,113 @@
+<style>
+ .c3-region.regionGreen {
+   fill: green;
+ }
+.c3-region.regionRed {
+  fill: red;
+}
+.c3-line {
+    stroke-width: 2.3px;
+}
+</style>
+<div id="divPaginaDashboard" class="container-fluid">
+	<div class="panel panel-default panel-container">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-line-chart"></i> Histórico</h3>
+	        <button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+				title="Tutoriais" ng-click="$parent.abrirModalInformacoes()">
+				<span class="fa fa-info-circle" aria-hidden="true"></span>
+			</button>
+         </div>
+         <div id="divHistorico" class="panel-body">
+
+		    <div id="divPeriodo" class="row">
+		    	<div class="col-md-12">
+					<div class="panel panel-default">
+		                <div class="panel-heading text-center">
+		                    <h3 class="panel-title"><i class="fa fa-calendar"></i> Histórico de Dados</h3>
+		                </div>
+		                <div class="panel-body">
+		                	<div class="col-md-4">
+						    	<div class="input-group datapicker">
+						    		<span class="input-group-addon" >Inicial</span>
+				                	<input name="campoDataInicial" class="form-control" type="text" datepicker-popup="dd/MM/yyyy"
+				                    ng-model="dataInicial" is-open="dataInicialIsOpen" onkeydown="return forceDate(event);"
+				                    show-button-bar="false" />
+					                <div class="input-group-btn">
+					                    <button type="button" class="btn btn-success" ng-click="openDataInicial()">
+					                    	<span class="fa fa-calendar"></span>
+					                    </button>
+					                </div>
+				   				</div>
+			   				</div>
+			   				<div class="col-md-4">
+				   				<div class="input-group datapicker">
+				   					<span class="input-group-addon" >Final</span>
+						            <input name="campoDataFinal" class="form-control" type="text" datepicker-popup="dd/MM/yyyy"
+						            ng-model="dataFinal" is-open="dataFinalIsOpen" onkeydown="return forceDate(event);"
+						            show-button-bar="false" />
+						            <div class="input-group-btn">
+						                <button type="button" class="btn btn-success" ng-click="openDataFinal()">
+						                    <span class="fa fa-calendar"></span>
+						                </button>
+						            </div>
+						    	</div>
+					    	</div>
+   		                	<div class="col-md-4">
+ 		                		<button type="button" class="btn btn-sm"
+									ng-class="{'btn-danger' : isAplicarLogistica, 'btn-cinza' : !isAplicarLogistica}"
+									title="Aplicar Logística" ng-click="aplicarLogistica()">
+									<span>Aplicar Logística</span>
+								</button>
+						        <button id="buttonHistoricoReal" type="button" class="btn btn-primary btn-sm" 
+									title="R$" ng-click="modificarMoedaHistorico('real')">
+									<span><b>R$</b></span>
+								</button>
+								<button id="buttonHistoricoDolar" type="button" class="btn btn-info btn-sm" 
+									title="US$" ng-click="modificarMoedaHistorico('dolar')">
+									<span><b>US$</b></span>
+								</button>
+		                	</div>
+					    </div>
+					</div>
+				</div>
+		    </div>
+
+		    <div id="divRelatorioSelecionado" class="row">
+		    	<div class="col-md-12">
+					<div class="panel panel-default">
+		                <div class="panel-heading text-center">
+			                <h3 class="panel-title"><i class="fa fa-line-chart"></i> Relatório  ||
+								<b> <span ng-show="tipoMoeda == 'real'">R$</span> <span ng-show="tipoMoeda == 'dolar'">US$</span>
+			                		sc/60kg </b>
+		                	</h3>
+		                	
+		                	
+		                	<button type="button" style="margin: -24px 5px 0 0;" class="btn pull-right"
+		                		ng-disabled="!isGraficoHabilitado"
+		                		ng-class="{'btn-danger' : !isGraficoHabilitado, 'btn-success' : isGraficoHabilitado}"
+ 								ng-click="imprimirGrafico()" title="Imprimir Gráfico  {{tipoMoeda}}">
+<!-- 								<i class="fa fa-line-chart"></i> -->
+		                    	<i class="fa fa-print"></i>
+		                    </button>
+							<button type="button" style="margin: -24px 5px 0 0;" class="btn pull-right"
+								ng-disabled="!isGraficoHabilitado"
+								ng-class="{'btn-danger' : !isGraficoHabilitado, 'btn-success' : isGraficoHabilitado}"
+ 								ng-click="imprimirRelatorio()" title="Imprimir Excel {{tipoMoeda}}">
+								<i class="fa fa-file-excel-o"></i>
+<!-- 		                    	<i class="fa fa-print"></i> -->
+		                    </button>
+<!-- 		                    <button type="button" style="margin: -24px 5px 0 0;" class="btn btn-danger pull-right" -->
+<!-- 		                    		ng-click="gerarRelatorioCompleto()" title="Visualizar Gráfico"> -->
+<!-- 		                    	<i class="fa fa-search"></i> -->
+<!-- 		                    </button> -->
+		                </div>
+		                <div class="panel-body">
+		                	<div id="graficoHistoricoCotacoes" ></div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+         </div>
+     </div>
+</div>

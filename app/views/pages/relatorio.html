@@ -1,0 +1,231 @@
+<div class="message-alerta">
+   	<div directive-alerta-sistema-template></div>
+</div>
+
+<div id="divRelatorioImportacao" class="container-fluid">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<h3>
+				<span class="glyphicon glyphicon-file" style="margin-right: 10px;"></span>Relatório de Importação
+			</h3>
+			<!-- Data Importação -->
+			<div class="row">
+	    		<div class="col-md-5">
+	    			<h5>Data Importação</h5>
+	    			<div class="input-group datapicker">
+	                    <input name="campoDataCambio" class="form-control" type="text" datepicker-popup="dd/MM/yyyy" ng-change="changeDataCambio()" ng-model="objetoDataCambioSelecionada" is-open="dataCambioIsOpen" onkeydown="return forceDate(event);"/>
+		                <div class="input-group-btn">
+		                    <button type="button" class="btn btn-success" ng-click="openDataCambio()">
+		                    	<span class="glyphicon glyphicon-calendar"></span>
+		                    </button>
+		                </div>
+					</div>
+				</div>
+			</div>
+	
+			<br>
+	
+			<!-- Dados -->
+			<div class="row">
+				<div class="col-md-5">
+					<h5>Dados do Câmbio</h5>
+					<ul class="list-group list-cambio">
+						<li>Dolar: <span>{{cambio.valorDolar}}</span></li>
+						<li>Euro: <span>{{cambio.valorEuro}}</span></li>
+						<li>Relação Euro para Dolar: <span>{{cambio.valorEuroDolar}}</span></li>
+					</ul>
+				</div>
+	
+				<!-- Valor Mercadoria -->
+				<div class="col-md-5">
+					<h5>Dados Valor Mercadoria</h5>
+					<div class="overflow">
+						<div ng-repeat="mercadoriaCotacao in valorMercadoriaCotacaoList track by $index">
+							<ul class="list-group list-valorMercadoria">
+								<li>Cotação: <span>{{mercadoriaCotacao.cotacaoNome}}</span></li>
+								<li>Valor R$: <span>{{mercadoriaCotacao.valorMercadoriaReal}}</span></li>
+								<li>Valor US$: <span>{{mercadoriaCotacao.valorMercadoriaDolar}}</span></li>
+								<li>Valor €: <span>{{mercadoriaCotacao.valorMercadoria}}</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br>
+			<hr>
+		
+<!-- 			<div class="row"> -->
+<!-- 				<div ng-repeat="cotacao in cotacaoList"> -->
+<!--   					<button type="button" class="btn btn-default btn-sm" >{{cotacao.nome}}</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+				
+<!-- 			<div class="row"> -->
+<!-- 				<uib-tabset active="active"> -->
+<!-- 				    <uib-tab index="$index + 1" ng-repeat="cotacao in cotacaoList" heading="{{cotacao.nome}}"  -->
+<!-- 				    		active="cotacao.active" disable="tab.disabled"> -->
+<!-- 				      {{cotacao.nome}} fabricio dos reis {{cotacao.id}} -->
+<!-- 				    </uib-tab> -->
+<!-- 				</uib-tabset> -->
+<!-- 			</div> -->
+			
+			
+			<!-- Relatorio do Sistema -->
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<!-- <ul class="nav nav-tabs" role="tablist">
+						<li role="presentation" ng-repeat="cotacao in cotacaoList">
+							<a href="#{{cotacao.id}}" aria-controls="{{cotacao.nome}}" role="tab" data-toggle="tab">{{cotacao.nome}}</a>
+						</li>
+					</ul> -->
+					<div class="tab-content">
+<!-- 		 				<div ng-repeat="cotacao in cotacaoList" ng-init="$last ? montar() : naoMontar()"> -->
+<!-- 		 				<div ng-repeat="cotacao in cotacaoList" on-finish-repeat-cotacao> -->
+						<div ng-repeat="cotacao in cotacaoList" >
+		 					<h4>{{cotacao.nome}}</h4>
+		 					<div role="tabpanel" class="tab-pane" id="{{cotacao.id}}" >
+		 						<div class="table-responsive">
+									<div class="table table-striped tabela">
+										<div class="table-row">
+											<div class="table-cell">
+												<h4 style="text-align: center;">{{cotacao.nome}}</h4>
+											</div>
+										</div>
+										<div class="table-row">
+											<div class="table-cell">
+												<h5 style="text-align: center; font-style: italic;">{{cotacao.descricao}}</h5>
+											</div>
+										</div>
+										<div ng-repeat="categoria in cotacao.categoriaList">
+											<div class="table-row">
+												<div class="table-cell">
+													<span style="text-align: center; font-weight: bold;">
+														{{categoria.nome}}
+													</span>
+												</div>
+											</div>
+											<div class="table-row">
+												<div class="table-cell">
+													<div class="col-md-4">
+														<span>Nome</span>
+													</div>
+													<div class="col-md-2">
+														<span>R$</span>
+													</div>
+													<div class="col-md-2">
+														<span>US$</span>
+													</div>
+													<div class="col-md-2">
+														<span>€</span>
+													</div>
+												</div>
+											</div>
+											
+											<div ng-repeat="item in categoria.itemList">
+
+												<div class="table-row">
+													<div class="table-cell">
+														<div class="col-md-4">
+															<span ng-show="item.isCategoriaTotal == 0"
+															 tooltip-placement="right" tooltip="{{item.formula}}">
+															{{item.nome}} {{item | filterSimboloMoeda}}</span>
+															
+															<span ng-show="item.isCategoriaTotal == 1"
+															 tooltip-placement="right" tooltip="{{item.formula}}"><b>
+															{{item.nome}} {{item | filterSimboloMoeda}}</b></span>
+														</div>
+														<div class="col-md-2">
+															<span ng-show="item.isCategoriaTotal == 0">{{item.valor}}</span>
+															<span ng-show="item.isCategoriaTotal == 1"><b>{{item.valor}}</b></span>
+														</div>
+														<div class="col-md-2">
+															<span ng-show="item.isCategoriaTotal == 0">{{item.valorDolar}}</span>
+															<span ng-show="item.isCategoriaTotal == 1"><b>{{item.valorDolar}}</b></span>
+														</div>
+														<div class="col-md-2">
+															<span ng-show="item.isCategoriaTotal == 0">{{item.valorEuro}}</span>
+															<span ng-show="item.isCategoriaTotal == 1"><b>{{item.valorEuro}}</b></span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Total Categoria -->
+							<div class="table table-striped tabela">
+								<div class="table-row">
+									<div class="table-cell">
+										<div class="col-md-2">
+											<span>Nome</span>
+										</div>
+										<div class="col-md-2">
+											<span>R$</span>
+										</div>
+										<div class="col-md-2">
+											<span>US$</span>
+										</div>
+										<div class="col-md-2">
+											<span>€</span>
+										</div>
+										<div class="col-md-2">
+											<span>%</span>
+										</div>
+									</div>
+								</div>
+								<div ng-repeat="categoria in cotacao.categoriaList">
+									<div ng-repeat="item in categoria.itemList">
+										<div class="table-row" ng-show="item.isCategoriaTotal == 1">
+											<div class="table-cell">
+												<div class="col-md-2">
+													<span tooltip-placement="top" tooltip="{{item.formula}}">{{item.nome}}</span>
+												</div>
+												<div class="col-md-2">
+													<span>{{item.valor}}</span>
+												</div>
+												<div class="col-md-2">
+													<span>{{item.valorDolar}}</span>
+												</div>
+												<div class="col-md-2">
+													<span>{{item.valorEuro}}</span>
+												</div>
+												<div class="col-md-2">
+													<span>{{item.porc}}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- Grafico -->
+<!-- 							<div id="divGrafico_{{cotacao.id}}"></div> -->
+							<br>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div id="divGraficosTotalCategoria" > </div>
+			</div>
+
+			<div class="row">
+				<div id="graficoValorMercadoria" ></div>
+			</div>
+			
+			<div class="row">
+<!-- 				<button type="button" class="btn btn-warning" style="margin-top: 20px;"  -->
+<!-- 					title="MONTAR" ng-click="montar()">montar -->
+<!-- 					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> -->
+<!-- 				</button> -->
+			
+				<button type="button" class="btn btn-success" style="margin-top: 20px;" 
+					title="Gerar PDF" ng-click="gerarPDF()">gerarPDF
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

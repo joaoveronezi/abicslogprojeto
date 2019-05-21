@@ -1,0 +1,259 @@
+<div class="container-fluid">
+
+	<!-- INICIO COMTRADE -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default panel-container">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-globe"></i>
+						<b>Fonte COMTRADE: Valores de importação e exportação discriminados por país. Dados anuais e mensais. *Ainda faltam algumas origens</b>
+					</h3>
+					<button type="button" class="btn btn-primary btn-sm pull-right" style="margin-top: -24px;"
+						title="Tutoriais" ng-click="$parent.abrirModalInformacoes()">
+						<span class="fa fa-info-circle" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="panel-body">
+					<form name="formConsultarAbicsDataComparativo" novalidate>
+						<div class="row">
+							<div class="col-md-3">
+			     	    		<button id="buttonUmaOrigem" class="btn btn-primary" ng-click="changeTipoOrigemDestino(0)">1 origem &rarr; Vários destinos</button>
+								<button id="buttonMultiOrigem" class="btn btn-info" ng-click="changeTipoOrigemDestino(1)">Várias origens &rarr; 1 destino</button>
+							</div>
+							<div class="form-group col-md-3">
+								<label for="report">Origem</label>
+								<select class="form-control" id="reporter" ng-model="reporterSelecionadoList" ng-click="clickReporter(reporter)" required>
+								<option ng-repeat="reporter in reporterList" value="{{reporter.id}}">{{reporter.text}}</option>
+<!-- 									<option ng-repeat="reporter in reporterList" value="{{reporter.id}}">{{reporter.text}} -->
+<!-- 									    ({{reporter.abicsPaisId != null ? 'ABICS' : '---'}} || {{reporter.ativo ? 'COMTRADE' : '---'}})</option> -->
+								</select>
+							</div>
+							<div class="col-md-3">
+							 	<label for="report">Destino</label>
+								<select class="form-control select-height-active" id="partner" multiple required
+									ng-model="partnerSelecionadoList" ng-click="clickParter(partner)">
+									<option ng-repeat="partner in partnerList" value="{{partner.id}}" >
+									    {{partner.text}}
+								    </option>
+<!-- 									<option ng-repeat="partner in partnerList" value="{{partner.id}}" > -->
+<!-- 									    {{partner.text}}     ({{partner.abicsPaisId != null ? 'ABICS' : '---'}} || {{partner.ativo ? 'COMTRADE' : '---'}}) -->
+<!-- 								    </option> -->
+								</select>
+							</div>
+							<div class="col-md-3">
+					     	    <label class="btn btn-primary"><input type="radio" data-ng-model="tipoData" value="0" ng-click="changeTipoData()" style="margin-right: 5px;">Anual</label>
+					     	    <label class="btn btn-default"><input type="radio" data-ng-model="tipoData" value="1" ng-click="changeTipoData()" style="margin-right: 5px;">Mensal</label><br>
+					     	</div>
+				    		<div ng-show="tipoData == 0">
+				    			<div class="col-md-1">
+									<div class="checkbox">
+					                	<label><input ng-model="allAno" type="checkbox"><b>Todos</b></label>
+					                </div>
+					            </div>
+					            <div class="col-md-2">
+					                <div class="checkbox">
+					                	<label><input ng-model="ano2016" ng-checked="allAno" type="checkbox">2016</label>
+					                </div>
+					                <div class="checkbox">
+					                	<label><input ng-model="ano2015" ng-checked="allAno" type="checkbox">2015</label>
+									</div>
+					                <div class="checkbox">
+					                	<label><input ng-model="ano2014" ng-checked="allAno" type="checkbox">2014</label>
+					                </div>
+					                <div class="checkbox">
+					                	<label><input ng-model="ano2013" ng-checked="allAno" type="checkbox">2013</label>
+									</div>
+					                <div class="checkbox">
+					                	<label><input ng-model="ano2012" ng-checked="allAno" type="checkbox">2012</label>
+									</div>
+					                <div class="checkbox">
+					                	<label><input ng-model="ano2011" ng-checked="allAno" type="checkbox">2011</label>
+									</div>
+					                <div class="checkbox">
+					                	<label><input ng-model="ano2010" ng-checked="allAno" type="checkbox">2010</label>
+					            	</div>
+				            	</div>
+				    		</div>
+				    		<div class="col-md-3" ng-show="tipoData == 1">
+								<div class="form-group">
+									<label for="year">Ano</label>
+									<select class="form-control" id="year" ng-model="anoMensal" >
+										<option ng-repeat="year in anoMensalList" value="{{year}}">{{year}}</option>
+									</select>
+								</div>
+								<div class="row">
+									<div class="col-md-3">
+										<div class="checkbox">
+						                	<label><input ng-model="allMes" type="checkbox"><b>Todos</b></label>
+					                	</div>
+									</div>
+									<div class="col-md-3">
+					                	<div class="checkbox">
+						                	<label><input ng-model="mes1" ng-checked="allMes" type="checkbox">Janeiro</label>
+					                	</div>
+					                	<div class="checkbox">
+						                	<label><input ng-model="mes2" ng-checked="allMes" type="checkbox">Fevereiro</label>
+						            	</div>
+										<div class="checkbox">
+						                	<label><input ng-model="mes3" ng-checked="allMes" type="checkbox">Março</label>
+						            	</div>
+										<div class="checkbox">
+						                	<label><input ng-model="mes4" ng-checked="allMes" type="checkbox">Abril</label>
+						            	</div>
+										<div class="checkbox">
+						                	<label><input ng-model="mes5" ng-checked="allMes" type="checkbox">Maio</label>
+						            	</div>
+										<div class="checkbox">
+						                	<label><input ng-model="mes6" ng-checked="allMes" type="checkbox">Junho</label>
+						            	</div>
+									</div>
+									<div class="col-md-3">
+										<div class="checkbox">
+						                	<label><input ng-model="mes7" ng-checked="allMes" type="checkbox">Julho</label>
+						            	</div>
+										<div class="checkbox">
+						                	<label><input ng-model="mes8" ng-checked="allMes" type="checkbox">Agosto</label>
+						            	</div>
+										<div class="checkbox">
+						                	<label><input ng-model="mes9" ng-checked="allMes" type="checkbox">Setembro</label>
+						            	</div>
+										<div class="checkbox">
+						                	<label><input ng-model="mes10" ng-checked="allMes" type="checkbox">Outubro</label>
+						            	</div>
+										<div class="checkbox">
+						                	<label><input ng-model="mes11" ng-checked="allMes" type="checkbox">Novembro</label>
+						            	</div>
+										<div class="checkbox">
+						                	<label><input ng-model="mes12" ng-checked="allMes" type="checkbox">Dezembro</label>
+						            	</div>
+						            </div>
+								</div>
+				    		</div>
+						</div>
+						<div class="row">
+							<div class="col-md-1 col-md-offset-11">
+							 	<button type="button" class="btn btn-primary btn-block"  ng-disabled="formConsultarAbicsDataComparativo.$invalid"
+							 		ng-click="consultarComparativo()">Consultar</button>
+							</div>
+						</div>
+					</form>
+				 </div>
+			 </div>
+<!-- 			 <div class="panel panel-default"> -->
+<!-- 			 	<div class="panel-body"> -->
+<!-- 			 		<div class="col-md-12"> -->
+<!-- 					 	<label>Pais Origem: {{paisOrigem}}</label> -->
+<!-- 					 	<label>Pais Destino: {{paisDestino}}</label> -->
+<!-- 					</div> -->
+<!-- 			 	</div> -->
+<!-- 			 </div> -->
+		 </div>
+	 </div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<!--exportacao -->
+		 	<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-globe"></i>
+						<b>Valores exportados pela origem(ns) para o destino(s)</b>
+					</h3>
+				</div>
+				<div class="panel-body">
+				 	<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title"><i class="fa fa-balance-scale"></i>
+									<b>Peso (KG) - NetWeight</b>
+								</h3>
+							</div>
+							<div id="divGraficoComtradeExportacaoNetWeight" class="panel-body">
+								<div id="graficoComtradeExportacaoNetWeight"></div>
+								<div id="graficoComtradeExportacaoVariacaoNetWeight"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title"><i class="fa fa-usd"></i>
+									<b>Valor Comercializado (US$) - TradeValue</b>
+								</h3>
+							</div>
+							<div id="divGraficoComtradeExportacaoTradeValue" class="panel-body">
+								<div id="graficoComtradeExportacaoTradeValue"></div>
+								<div id="graficoComtradeExportacaoVariacaoTradeValue"></div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title"><i class="fa fa-database"></i>
+									<b>Custo médio Saca de 60kg (US$) - (Valor Comercializado % Peso) * 60</b>
+								</h3>
+							</div>
+							<div id="divGraficoComtradeExportacaoSaca60kg" class="panel-body">
+								<div id="graficoComtradeExportacaoSaca60kg"></div>
+								<div id="graficoComtradeExportacaoVariacaoSaca60kg"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- importação -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title"><i class="fa fa-globe"></i>
+						<b>Valores importados pela origem(ns) para o destino(s)</b>
+					</h3>
+				</div>
+				<div class="panel-body">
+				 	<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title"><i class="fa fa-balance-scale"></i>
+									<b>Peso (KG) - NetWeight</b>
+								</h3>
+							</div>
+							<div id="divGraficoComtradeImportacaoNetWeight" class="panel-body">
+								<div id="graficoComtradeImportacaoNetWeight"></div>
+<!-- 								<div id="graficoComtradeImportacaoVariacaoNetWeight"></div> -->
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title"><i class="fa fa-usd"></i>
+									<b>Valor Comercializado (US$) - TradeValue</b>
+								</h3>
+							</div>
+							<div id="divGraficoComtradeImportacaoTradeValue" class="panel-body">
+								<div id="graficoComtradeImportacaoTradeValue"></div>
+<!-- 								<div id="graficoComtradeImportacaoVariacaoTradeValue"></div> -->
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3 class="panel-title"><i class="fa fa-database"></i>
+									<b>Custo médio Saca de 60kg (US$) - (Valor Comercializado % Peso) * 60</b>
+								</h3>
+							</div>
+							<div id="divGraficoComtradeImportacaoSaca60kg" class="panel-body">
+								<div id="graficoComtradeImportacaoSaca60kg"></div>
+<!-- 								<div id="graficoComtradeImportacaoVariacaoSaca60kg"></div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+ 	</div>
+
+	<!-- FIM COMTRADE -->
+
+ </div>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR" ng-app="moduleTemplate" ng-controller="controllerTemplate" >
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="icon" href='..//assets/images/favicon.ico'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="CIMTech">
+
+<title>ABICS</title>
+
+<link rel="stylesheet" href="../assets/stylesheets/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/stylesheets/vendor/c3.min.css">
+<link rel="stylesheet" href="../assets/stylesheets/vendor/font-awesome.min.css">
+<link rel="stylesheet" href="../assets/stylesheets/vendor/chosen.css">
+<link rel="stylesheet" href="../assets/stylesheets/vendor/handsontable.full.css">
+<link rel="stylesheet" media="screen" href="../assets/stylesheets/vendor/jquery-ui.min.css">
+<link rel="stylesheet" href="../assets/stylesheets/style.css" />
+
+</head>
+
+<body>
+	<section class="cabecalho atalhos">
+	    <nav class="navbar-default navbar navbar-fixed-top nav-int navbar-height none-border">
+	    	<div class="navbar-header">
+	        	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		            <span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+	        	</button>
+	        	<a class="navbar-brand" ng-if="primeiroLogin == 1" href="http://www.abics.com.br" target="_blank" title="Portal Abics"><img class="abics-logo" src="../assets/images/abics.png" alt="ABICS LOG"></a>
+	        </div>
+        	<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav" ng-if="primeiroLogin == 1 && permissaoUsuarioLogado == 2">
+					<li><a href="usuario"><i class="fa fa-fw fa-users"></i>Usuários</a></li>
+				</ul>
+				<ul class="nav navbar-nav"  ng-if="primeiroLogin == 1 && permissaoUsuarioLogado == 1">
+					<li class="dropdown">
+		             	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i> Cadastro<b class="caret"></b></a>
+		            	<ul class="dropdown-menu">
+			                <li><a href="../views/pages/item.html"><i class="fa fa-fw fa-adjust"></i> Item</a></li>
+							<li><a href="../views/pages/categoria.html"><i class="fa fa-fw fa-tags"></i> Categorias</a></li>
+							<li><a href="../views/pages/cotacao.html"><i class="fa fa-fw fa-bar-chart-o"></i> Cotações</a></li>
+							<li class="divider"></li>
+							<li><a href="../views/pages/usuario.html"><i class="fa fa-fw fa-users"></i>Usuários</a></li>
+          				</ul>
+        			</li>
+        			
+        			<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-refresh"></i> Sincronização<b class="caret"></b></a>
+						<ul class="dropdown-menu alert-dropdown">
+							<li><a href="sumarizacaoSincronizacao"><i class="fa fa-exchange" ></i> Informações Coletadas</a></li>
+							<li><a href="cambio"><i class="fa fa-calculator"></i> Informações Coletadas Histórico</a></li>
+						</ul>
+					</li>
+       			</ul>
+       			
+				<ul id="abicsDropDown" class="nav navbar-nav" ng-show="permissaoData">
+					<li class="dropdown" ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 1 || permissaoUsuarioLogado == 2)">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-database"></i> Abics Data<b class="caret"></b></a>
+						<ul class="dropdown-menu alert-dropdown">
+							<li><a href="/abicsData"><i class="fa fa-handshake-o" ></i> Acordos Comerciais</a></li>
+							<li><a href="/abicsDataRelatorioBrasil"><i class="fa fa-flag-checkered" ></i> Relatório Brasil</a></li>
+							<li><a href="/abicsDataRelatorio"><i class="fa fa-globe" ></i> Relatório Mundo</a></li>
+							<li><a href="/abicsDataEmpresaProduto"><i class="fa fa-files-o" ></i> Empresa / Produto</a></li>
+							<li><a href="/fonteAbicsData"><i class="fa fa-newspaper-o" ></i> Fontes</a></li>						
+						</ul>
+					</li>
+				</ul>
+				
+				<ul id="logDropDown" class="nav navbar-nav" ng-show="permissaoLog">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-truck"></i> Abics Log<b class="caret"></b></a>
+						<ul class="dropdown-menu alert-dropdown">
+							<li ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 1 || permissaoUsuarioLogado == 2 || permissaoUsuarioLogado == 3 || permissaoUsuarioLogado == 4)"><a href="../views/pages/dashboard.html"><i class="fa fa-line-chart"></i> Dashboard</a></li>
+							<li ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 1 || permissaoUsuarioLogado == 2)"><a href="historico"><i class="fa fa-history"></i> Histórico</a></li>
+							<li ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 1 || permissaoUsuarioLogado == 2 || permissaoUsuarioLogado == 4)"><a href="logistica"><i class="fa fa-truck"></i> Logística</a>
+							<li><a href="/fonte"><i class="fa fa-newspaper-o" ></i> Fontes</a></li>						
+						</ul>
+					</li>
+				</ul>
+				
+				<ul id="logDropDown" class="nav navbar-nav" ng-show="permissaoLog">
+					<li ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 3 || permissaoUsuarioLogado == 4)"><a href="../views/pages/dashboard.html"><i class="fa fa-line-chart"></i> Dashboard</a></li>
+					<li class="dropdown" ng-if="primeiroLogin == 1 && permissaoUsuarioLogado == 4">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-truck"></i> Logística<b class="caret"></b></a>
+						<ul class="dropdown-menu alert-dropdown">
+							<li><a href="logistica"><i class="fa fa-truck" ></i> Atual</a></li>
+							<li><a href="logisticaHistorico"><i class="fa fa-calculator"></i> Histórico</a></li>
+						</ul>
+					</li>
+					<li ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 3 || permissaoUsuarioLogado == 4)"><a href="/fonte"><i class="fa fa-newspaper-o" ></i> Fontes</a></li>
+				</ul>
+				
+				<ul class="nav navbar-nav navbar-right">
+		            <li class="dropdown" ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 1 || permissaoUsuarioLogado ==2)">
+		            	<a href="tutorial"><i class="fa fa-play"></i> Tutoriais</a>
+	            	</li>
+					<li class="dropdown" ng-if="primeiroLogin == 1 && (permissaoUsuarioLogado == 1 || permissaoUsuarioLogado ==2)">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" ng-click="abrirModalCadastrarUsuario()"><i class="fa fa-envelope"></i> Convite</a>
+					</li>
+		            <li class="dropdown dropdown-user"><a href="#" class="dropdown-toggle" data-toggle="dropdown" ><i class="fa fa-user"></i> {{nomeUsuarioLogado}}<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="configuracaoUsuario"><i class="fa fa-fw fa-user" ></i> Perfil</a></li>
+							<li><a href="contato"><i class="fa fa-fw fa-send"></i> Contato</a></li>
+							<li class="divider"></li>
+							<li><a ng-click="logoutSistema()"><i class="fa fa-fw fa-power-off" ></i> Sair</a></li>
+						</ul>
+					</li>
+		        </ul>
+			</div>
+    	</nav>
+	</section>
+
+	<section>
+		<div id="divMain wrapper">
+		<div class="message-alerta">
+		   	<div directive-alerta-sistema-template></div>
+		</div>
+			<div ng-view></div>
+		</div>
+	</section>
+
+	<section class="footer">
+		<footer>
+			<div class="row">
+				<div class="col-md-12">
+					<hr />
+					<h6 style="text-align: center; color: #7A8B8B;">&copy; CIMTech
+						2018 - Todos os direitos de propriedade e uso serão da ABICS.</h6>
+				</div>
+			</div>
+		</footer>
+	</section>
+
+	<section>
+		<div directive-modal-cadastrar-usuario>
+	</section>
+
+	<section>
+		<div directive-modal-informacoes>
+	</section>
+
+	<!-- jquery -->
+	<script src="../assets/javascripts/vendor/jquery-1.11.3.min.js"></script>
+
+	<!-- angular -->
+	<script src="../assets/javascripts/vendor/angular.min.js"></script>
+	<script src="../assets/javascripts/vendor/angular-route.min.js"></script>
+	<script src="../assets/javascripts/vendor/angular-cookies.min.js"></script>
+	<script src="../assets/javascripts/vendor/angular-translate.js"></script>
+	<script src="../assets/javascripts/vendor/i18n/angular-locale_pt-br.js"></script>
+	
+	<!-- jquery multi-select -->
+	<script src="../assets/javascripts/vendor/chosen.jquery.js"></script>
+	<script src="../assets/javascripts/vendor/init.js"></script>
+	<script src="../assets/javascripts/vendor/chosen.js"></script>
+	
+	<!-- jquery ui -->
+	<script src="../assets/javascripts/vendor/jquery-ui.min.js"></script>
+
+	<!-- ui bootstrap -->
+	<script src="../assets/javascripts/vendor/ui-bootstrap-tpls-0.13.3.min.js"></script>
+	<script src="../assets/javascripts/vendor/bootstrap.min.js"></script>
+
+	<!-- moment -->
+	<script src="../assets/javascripts/vendor/moment.min.js"></script>
+
+	<!-- grafico -->
+	<script src="../assets/javascripts/vendor/d3.js" charset="utf-8"></script>
+	<script src="../assets/javascripts/vendor/c3.js"></script>
+	<script src="../assets/javascripts/vendor/topojson.v1.js"></script>
+
+	<!-- grafico - svg canvas -->
+	<script src="../assets/javascripts/vendor/canvg.js"></script>
+	<script src="../assets/javascripts/vendor/rgbcolor.js"></script>
+	<script src="../assets/javascripts/vendor/StackBlur.js"></script>
+
+	<!-- blockUI -->
+	<script src="../assets/javascripts/vendor/jquery.blockUI.min.js"></script>
+
+	<!-- Chroma JS -->
+	<script type="text/javascript" src="../assets/javascripts/vendor/chroma.min.js" ></script>
+
+	<script type="text/javascript" src="../assets/javascripts/vendor/handsontable.full.min.js" ></script>
+	
+<!-- 	<script type="text/javascript" src="assets/javascripts/vendor/xlsx.full.min.js" ></script> -->
+
+	<script type="text/javascript" src="../assets/javascripts/util/forceInteger.js" ></script>
+	<script type="text/javascript" src="../assets/javascripts/util/forceDate.js" ></script>
+	<script type="text/javascript" src="../assets/javascripts/util/forceNumber.js" ></script>
+
+	<!-- Controllers -->
+	<script src="../assets/controller/templateController.js"></script>
+	<script src="../assets/controller/itemController.js"></script>
+	<script src="../assets/controller/categoriaController.js"></script>
+	<script src="../assets/controller/cotacaoController.js"></script>
+	<script src="../assets/controller/usuarioController.js"></script>
+	<script src="../assets/controller/graficoController.js"></script>
+	<script src="../assets/controller/configuracaoUsuarioController.js"></script>
+	<script src="../assets/controller/cambioController.js"></script>
+	<script src="../assets/controller/contatoController.js"></script>
+	<script src="../assets/controller/sumarizacaoSincronizacaoController.js"></script>
+	<script src="../assets/controller/tutorialController.js"></script>
+	<script src="../assets/controller/abicsDataController.js"></script>
+	<script src="../assets/controller/abicsDataRelatorioController.js"></script>
+	<script src="../assets/controller/abicsDataRelatorioBrasilController.js"></script>
+	<script src="../assets/controller/abicsDataComtradeController.js"></script>
+	<script src="../assets/controller/abicsDataEmpresaProdutoController.js"></script>
+	<script src="../assets/controller/abicsDataUSDAController.js"></script>
+	<script src="../assets/controller/abicsDataPaisController.js"></script>
+	<script src="../assets/controller/dashboardController.js"></script>
+	<script src="../assets/controller/dashboardNacionalController.js"></script>
+	<script src="../assets/controller/infoNutricionaisController.js"></script>
+	<script src="../assets/controller/historicoController.js"></script>
+	<script src="../assets/controller/fonteController.js"></script>
+	<script src="../assets/controller/fonteAbicsDataController.js"></script>
+	<script src="../assets/controller/logisticaController.js"></script>
+	<script src=../assets/controller/logisticaHistoricoController.js"></script>
+	<script src="../assets/controller/templateAbicsDataController.js"></script>
+	<script src="../assets/controller/templateRelatorioAbicsDataController.js"></script>
+	<script src="../assets/controller/templateAbicsLogController.js"></script>
+	<script src="../assets/controller/homeController.js"></script>
+</body>
+</html>
